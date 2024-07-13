@@ -4,6 +4,7 @@ import PrimaryText from '../Texts/PrimaryText';
 import Wrapper from '../Wrapper';
 import SecondaryText from '../Texts/SecondaryText';
 import AmountText from '../Texts/AmoutText';
+import { showRupiah } from '../../../helper/helper';
 
 const ListItemTransactionText = ({
     transactionType,
@@ -35,6 +36,10 @@ const ListItemTransactionText = ({
         textAlign: 'end'
     }
 
+    const handleAmount = () => {
+        return `${transactionType === 'expense' ? '-' : ''} ${showRupiah(transactionAmount)}`
+    }
+
     return (
         <ListItemTransactionText>
             <Wrapper style={wrapperStyle1}>
@@ -43,7 +48,7 @@ const ListItemTransactionText = ({
             </Wrapper>
             <Wrapper style={wrapperStyle2}>
                 <AmountText
-                    text={transactionAmount}
+                    text={handleAmount()}
                     category={transactionType}
                 />
                 <PrimaryText text={transactionDate} />

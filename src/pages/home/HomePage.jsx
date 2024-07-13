@@ -9,16 +9,10 @@ import ListTransactions from "../../components/fragments/ListTransactions"
 import CustomDialog from "../../components/elements/CusDialog"
 import { listTransactions } from '../../redux/transaction.js/transactionReducers';
 
-
-// const emails = ['username@gmail.com', 'user02@gmail.com'];
-
 const HomePage = () => {
-    const [open, setOpen] = React.useState(false);
-    // const { transactions } = useSelector((state) => state.transaction);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
-    // const [selectedValue, setSelectedValue] = React.useState(emails[1]);
+    const [open, setOpen] = React.useState(false);    
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -30,7 +24,7 @@ const HomePage = () => {
     };
 
     useEffect(()=>{
-        dispatch(listTransactions());
+        dispatch(listTransactions());        
     },[dispatch])
 
     return (
@@ -38,12 +32,7 @@ const HomePage = () => {
             <ListTransactions />
             <Fab onClick={handleClickOpen} color="primary" aria-label="add" sx={{ position:'absolute', bottom: 15, right:15 }}>
                 <AddIcon sx={{ color : 'white' }} />
-            </Fab>
-            {/* {
-                transactions.map((v)=>{
-                    <p>{v.transaction_id}</p>
-                })
-            } */}
+            </Fab>            
             <CustomDialog
                 open={open}
                 onClose={handleClose}

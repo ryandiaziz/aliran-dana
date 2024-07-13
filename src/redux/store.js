@@ -1,14 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-// import articleReducer from './articleSlice'
-// import paginationReducer from './paginationSlice'
-// import authReducer from './authSlice'
 import transactionReducers from "./transaction.js/transactionSlice";
+import categoryReducers from "./category/categorySlice";
+import accountReducers from "./account/accountSlice";
 
 const store = configureStore({
     reducer: {
-        transaction : transactionReducers
-        // pagination: paginationReducer,
-        // auth: authReducer
+        transaction : transactionReducers,
+        category : categoryReducers,
+        account : accountReducers
     }
 })
 
