@@ -2,13 +2,13 @@
 import { styled } from '@mui/material'
 
 // eslint-disable-next-line react/prop-types
-const ListItemTransactionIcon = ({children, category}) => {
+const ListItemTransactionIcon = ({children, transactionType}) => {
     const Container = styled('div')({
         minWidth : 56
     });
 
     const IconWrapper = styled('div')(({theme})=>({
-        background : category === 'income' ? theme.palette.primary.main : theme.palette.expense.main,
+        background : transactionType === 'income' ? theme.palette.primary.main : theme.palette.expense.main,
         borderRadius : '50%',
         height : 40,
         width : 40,

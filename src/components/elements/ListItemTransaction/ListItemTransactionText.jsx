@@ -1,18 +1,25 @@
 /* eslint-disable react/prop-types */
 import { styled } from '@mui/material';
-import PrimaryText from '../Text/PrimaryText';
+import PrimaryText from '../Texts/PrimaryText';
 import Wrapper from '../Wrapper';
-import SecondaryText from '../Text/SecondaryText';
-import AmountText from '../Text/AmoutText';
+import SecondaryText from '../Texts/SecondaryText';
+import AmountText from '../Texts/AmoutText';
 
-const ListItemTransactionText = ({category}) => {
+const ListItemTransactionText = ({
+    transactionType,
+    transactionAmount,
+    transactionNote,
+    transactionDate,
+    categoryName,
+    accountName
+}) => {
     const ListItemTransactionText = styled('div')({
         display: 'flex',
         justifyContent: 'space-between',
         width: '100%',
-        marginBlock: 6,        
+        marginBlock: 6,
         minWidth: 0,
-        height : 40,        
+        height: 40,
     });
 
     const wrapperStyle1 = {
@@ -25,21 +32,21 @@ const ListItemTransactionText = ({category}) => {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        textAlign : 'end'
+        textAlign: 'end'
     }
 
     return (
         <ListItemTransactionText>
             <Wrapper style={wrapperStyle1}>
-                <PrimaryText text={'Makanan'} />
-                <SecondaryText text={'Nasi padang bungo palo'} />
+                <PrimaryText text={categoryName} />
+                <SecondaryText text={`${accountName} - ${transactionNote}`} />
             </Wrapper>
             <Wrapper style={wrapperStyle2}>
                 <AmountText
-                    text='-10,000'
-                    category={category}
+                    text={transactionAmount}
+                    category={transactionType}
                 />
-                <PrimaryText text={'12:00'} />
+                <PrimaryText text={transactionDate} />
             </Wrapper>
         </ListItemTransactionText>
     )

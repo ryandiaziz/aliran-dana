@@ -1,21 +1,18 @@
-import RootLayout from "../components/layouts/RootLayout";
-
 import {
     createBrowserRouter,
     createRoutesFromElements,
     Route
 } from "react-router-dom";
 
-// import {
-//     TodayPage,
-//     UpcomingPage,
-// } from "../pages/index"
+import RootLayout from "../components/layouts/RootLayout";
+import HomePage from "../pages/home/HomePage";
+import AddTransactionPage from "../pages/add-transaction/AddTransactionPage";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<RootLayout />}>
-            {/* <Route path="todays" element={<TodayPage />} />
-            <Route path="upcomings" element={<UpcomingPage />} /> */}
+            <Route path="" element={<HomePage />} />
+            <Route path="add-transaction" element={<AddTransactionPage />} />
         </Route>
     )
 )

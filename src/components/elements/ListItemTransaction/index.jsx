@@ -6,7 +6,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import ListItemTransactionText from "./ListItemTransactionText";
 import ListItemTransactionIcon from "./ListItemTransactionIcon";
 
-const ListItemTrasaction = ({ category }) => {
+const ListItemTrasaction = ({ transactionData }) => {
     const ListItemTransactionContainer = styled('li')(({ theme }) => ({
         display: 'flex',
         justifyContent: 'flex-start',
@@ -24,10 +24,17 @@ const ListItemTrasaction = ({ category }) => {
 
     return (
         <ListItemTransactionContainer>
-            <ListItemTransactionIcon category={category}>
+            <ListItemTransactionIcon transactionType={transactionData.transaction_type}>
                 <AttachMoneyIcon />
             </ListItemTransactionIcon>
-            <ListItemTransactionText category={category} />
+            <ListItemTransactionText
+                transactionAmount={transactionData.transaction_amount}
+                transactionType={transactionData.transaction_type}
+                transactionDate={transactionData.transaction_date}
+                transactionNote={transactionData.transaction_note}
+                accountName={transactionData.account.account_name}
+                categoryName={transactionData.category.category_name}
+            />
         </ListItemTransactionContainer>
     )
 }
