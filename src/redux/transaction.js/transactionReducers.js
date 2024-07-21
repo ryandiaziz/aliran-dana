@@ -11,22 +11,23 @@ export const listTransactions = createAsyncThunk('transaction/listTransactions',
             url: `${URL}`
             // url: `${URL}?country=${data.country}&category=${data.category}`
         })
-        // thunkAPI.dispatch(setpagination(response.data.articles))
         return response.data;
     } catch (error) {
         return thunkAPI.rejectWithValue(error.message)
     }
 })
 
-// export const searchArticles = createAsyncThunk('article/searchArticles', async (data, thunkAPI) => {
-//     try {
-//         const response = await axios({
-//             method: 'GET',
-//             url: `${URL}/search?country=${data.country}&category=${data.category}&q=${data.q}`
-//         })
-//         thunkAPI.dispatch(setpagination(response.data.articles))
-//         return response.data.articles
-//     } catch (error) {
-//         return thunkAPI.rejectWithValue(error.message)
-//     }
-// })
+export const createTransactions = createAsyncThunk('transaction/createTransactions', async (data, thunkAPI) => {
+    try {
+        const response = await axios({
+            method: 'POST',
+            url: `${URL}`,
+            data
+        })
+        if (!response.data.metaData.status) throw new Error(response.data.metaData.message);
+        thunkAPI.dispatch(listTransactions())
+        return response.data;
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error.message)
+    }
+})

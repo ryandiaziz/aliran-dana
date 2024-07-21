@@ -1,43 +1,62 @@
-import { createSlice} from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 // import { setpagination } from './paginationSlice'
-import { listTransactions } from './transactionReducers'
+import { listTransactions, createTransactions } from './transactionReducers'
 
 const initialState = {
-    loading: false,
-    transactions: [],
-    error: ''
+    list: {
+        isLoading: false,
+        isError: false,
+        errorMessage: '',
+        transactions: []
+    },
+    create: {
+        isLoading: false,
+        isError: false,
+        errorMessage: '',
+        transactions: []
+    }
 }
 
 const transactionSlice = createSlice({
     name: 'transaction',
     initialState,
+    reducers: {
+        setError: (state) => {
+            state.create.isError = false;
+        }
+    },
     extraReducers: (builder) => {
-        // fetch
+        // FETCH LIST TRANSACTIONS
         builder.addCase(listTransactions.pending, (state) => {
-            state.loading = true
+            state.list.isError = false
+            state.list.isLoading = true
         })
-        builder.addCase(listTransactions.fulfilled, (state, action) => {            
-            state.loading = false
-            state.transactions = action.payload.response.data
+        builder.addCase(listTransactions.fulfilled, (state, action) => {
+            state.list.isLoading = false
+            state.list.transactions = action.payload.response.data
         })
         builder.addCase(listTransactions.rejected, (state, action) => {
-            state.loading = false
-            state.error = action.payload
+            state.list.isLoading = false
+            state.list.isError = true
+            state.list.errorMessage = action.payload
         })
-        // search
-        // builder.addCase(searchArticles.pending, (state) => {
-        //     state.loading = true
-        // })
-        // builder.addCase(searchArticles.fulfilled, (state, action) => {
-        //     state.loading = false
-        //     state.articles = action.payload
-        // })
-        // builder.addCase(searchArticles.rejected, (state, action) => {
-        //     state.loading = false
-        //     state.error = action.payload
-        // })
+        // CREATE TRANSACTION
+        builder.addCase(createTransactions.pending, (state) => {
+            state.create.isLoading = true
+            state.create.isError = false
+        })
+        builder.addCase(createTransactions.fulfilled, (state, action) => {
+            state.create.isLoading = false
+            state.create.transactions = action.payload
+        })
+        builder.addCase(createTransactions.rejected, (state, action) => {
+            state.create.isLoading = false
+            state.create.isError = true
+            state.create.errorMessage = action.payload
+        })
     }
 })
 
 export default transactionSlice.reducer;
+export const { setError } = transactionSlice.actions
