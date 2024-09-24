@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import TextField from '@mui/material/TextField';
 
-export default function TextInput({ value, label, type, name, onChange }) {
+export default function TextInput({ value, label, type, name, onChange, inputMode = 'text' }) {
 
     return (
         <TextField
@@ -12,6 +12,7 @@ export default function TextInput({ value, label, type, name, onChange }) {
             type={type}
             name={name}
             onChange={onChange}
+            inputMode={inputMode}
         />
     );
 }

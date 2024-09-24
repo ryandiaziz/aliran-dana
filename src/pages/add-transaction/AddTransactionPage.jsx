@@ -5,13 +5,13 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers';
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
 import SelectInput from "../../components/elements/Inputs/SelectInput";
 import TextInput from "../../components/elements/Inputs/TextInput";
 import useTransaction from "./useTransaction";
-import { useSnackbar } from "notistack";
 import { createTransactions } from "../../redux/transaction.js/transactionReducers";
-import { useNavigate } from "react-router-dom";
 
 const AddTransactionPage = () => {
     const { transactionTypesItems, categoryItems, accountItems } = useTransaction();
@@ -23,13 +23,13 @@ const AddTransactionPage = () => {
     const [date, setDate] = useState(dayjs());
     const [formValues, setFormValues] = useState({
         transaction_type: "",
-        transaction_amount: 0,
+        transaction_amount: "",
         transaction_note: "",
         transaction_date: dayjs().format('DD/MM/YYYY'),
         user_id: 2,
         category_id: "",
         account_id: ""
-    });
+    });    
 
     const handleChange = (e) => {
         let { name, value } = e.target;
@@ -43,16 +43,21 @@ const AddTransactionPage = () => {
     };
 
     const handleDateChange = (date) => {
-        let dateFormat = date.format('DD/MM/YYYY');
+        // console.log(date.$d);
+        // const timestamp = date.$d.toISOString()
+        let dateFormat = date.format('YYYY-MM-DD HH:mm:ss.SSS');
         setDate(date);
         setFormValues((prevValues) => ({
             ...prevValues,
-            transaction_date: dateFormat
+            transaction_date: dateFormat,
+
+            // new_date: timestamp
         }));
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(formValues);    
         dispatch(createTransactions(formValues));
 
         if (!isLoading) {
@@ -69,7 +74,7 @@ const AddTransactionPage = () => {
         <Box
             component={'form'}
             onSubmit={handleSubmit}
-            sx={{ marginInline: 10, marginTop: 5, display: 'flex', flexDirection: 'column', gap: 2 }}
+            sx={{ marginInline: 'auto', marginTop: '64px', paddingInline: 2, paddingBlock: 2, maxWidth: 768,  display: 'flex', flexDirection: 'column', gap: 2 }}
         >
             <SelectInput
                 value={formValues.transaction_type}
@@ -94,7 +99,8 @@ const AddTransactionPage = () => {
             />
             <TextInput
                 label={'Jumlah'}
-                type={'number'}
+                type={'text'}
+                inputMode="numeric"
                 name={'transaction_amount'}
                 value={formValues.transaction_amount}
                 onChange={handleChange}

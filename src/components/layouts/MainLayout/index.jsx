@@ -4,12 +4,11 @@ import { styled } from '@mui/material';
 
 const MainLayout = ({ children }) => {    
     const Container = styled('div')({
+        marginTop: 64,
         paddingInline: 2,
-        paddingBlock:8,
-        border: '1px dashed grey',
+        paddingBlock:8,        
         maxWidth: 768,
-        height: '100vh',
-        margin: 'auto',
+        marginInline: 'auto',
         position: 'relative'
     });
 

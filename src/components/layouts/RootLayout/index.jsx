@@ -1,9 +1,11 @@
 import { Outlet } from "react-router-dom";
+import AppbarCus from "../../elements/Appbar";
 
 const RootLayout = () => {
     return (
         <>
-            {/* OTHER ELEMENT */}            
+            {/* OTHER ELEMENT */}          
+            <AppbarCus/>  
             <Outlet />
         </>
     );

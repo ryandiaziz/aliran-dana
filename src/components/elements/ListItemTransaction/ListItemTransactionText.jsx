@@ -4,7 +4,7 @@ import PrimaryText from '../Texts/PrimaryText';
 import Wrapper from '../Wrapper';
 import SecondaryText from '../Texts/SecondaryText';
 import AmountText from '../Texts/AmoutText';
-import { showRupiah } from '../../../helper/helper';
+import { showDateTime, showRupiah } from '../../../helper/helper';
 
 const ListItemTransactionText = ({
     transactionType,
@@ -51,7 +51,7 @@ const ListItemTransactionText = ({
                     text={handleAmount()}
                     category={transactionType}
                 />
-                <PrimaryText text={transactionDate} />
+                <PrimaryText text={showDateTime(transactionDate)} />
             </Wrapper>
         </ListItemTransactionText>
     )
