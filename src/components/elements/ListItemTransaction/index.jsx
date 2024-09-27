@@ -1,29 +1,14 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { styled } from "@mui/material"
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 import ListItemTransactionText from "./ListItemTransactionText";
 import ListItemTransactionIcon from "./ListItemTransactionIcon";
+import ListItemContainer from "../ListItemContainer";
 
 const ListItemTrasaction = ({ transactionData }) => {
-    const ListItemTransactionContainer = styled('li')(({ theme }) => ({
-        display: 'flex',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        textDecoration: 'none',
-        width: '100%',
-        boxSizing: 'border-box',
-        textAlign: 'left',
-        padding: '8px 16px',
-        cursor: 'pointer',
-        '&:hover': {
-            backgroundColor: '#F5F7F8'
-        }
-    }))
-
     return (
-        <ListItemTransactionContainer>
+        <ListItemContainer>
             <ListItemTransactionIcon transactionType={transactionData.transaction_type}>
                 <AttachMoneyIcon />
             </ListItemTransactionIcon>
@@ -35,7 +20,7 @@ const ListItemTrasaction = ({ transactionData }) => {
                 accountName={transactionData.account.account_name}
                 categoryName={transactionData.category.category_name}
             />
-        </ListItemTransactionContainer>
+        </ListItemContainer>
     )
 }
 

@@ -2,7 +2,6 @@
 import React from 'react'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-// import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
@@ -15,19 +14,32 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import PaidIcon from '@mui/icons-material/Paid';
-
-
+import { useNavigate } from 'react-router-dom';
 const drawerWidth = 240;
-const navItems = ['Home', 'Rekening'];
+const navItems = [
+    {
+        name: 'Home',
+        path: '/'
+    },
+    {
+        name: 'Accounts',
+        path: '/accounts'
+    }
+];
 
 
 const AppbarCus = (props) => {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
+    const navigate = useNavigate();
 
     const handleDrawerToggle = () => {
         setMobileOpen((prevState) => !prevState);
     };
+
+    const goToPage = (path) => {
+        navigate(path);
+    }
 
     const drawer = (
         <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
@@ -37,9 +49,9 @@ const AppbarCus = (props) => {
             <Divider />
             <List>
                 {navItems.map((item) => (
-                    <ListItem key={item} disablePadding>
+                    <ListItem key={item.name} disablePadding>
                         <ListItemButton sx={{ textAlign: 'center' }}>
-                            <ListItemText primary={item} />
+                            <ListItemText primary={item.name} />
                         </ListItemButton>
                     </ListItem>
                 ))}
@@ -62,11 +74,11 @@ const AppbarCus = (props) => {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <PaidIcon sx={{display: { xs: 'none', md: 'block' }, mr: 1, color: 'white' }} />                    
+                    <PaidIcon sx={{ display: { xs: 'none', md: 'block' }, mr: 1, color: 'white' }} />
                     <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
                         {navItems.map((item) => (
-                            <Button key={item} sx={{ color: '#fff' }}>
-                                {item}
+                            <Button key={item.name} sx={{ color: '#fff' }} onClick={() => goToPage(item.path)}>
+                                {item.name}
                             </Button>
                         ))}
                     </Box>

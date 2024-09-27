@@ -51,7 +51,7 @@ const ListItemTransactionText = ({
                     text={handleAmount()}
                     category={transactionType}
                 />
-                <PrimaryText text={showDateTime(transactionDate)} />
+                <SecondaryText text={showDateTime(transactionDate)} />
             </Wrapper>
         </ListItemTransactionText>
     )

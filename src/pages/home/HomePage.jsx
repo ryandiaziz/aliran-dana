@@ -9,6 +9,7 @@ import MainLayout from "../../components/layouts/MainLayout"
 import ListTransactions from "../../components/fragments/ListTransactions"
 import CustomDialog from "../../components/elements/CusDialog"
 import { listTransactions } from '../../redux/transaction.js/transactionReducers';
+import BasicSpeedDial from '../../components/elements/BasicSpeedDial';
 
 const HomePage = () => {
     const navigate = useNavigate();
@@ -38,9 +39,10 @@ const HomePage = () => {
                     onClose={handleClose}
                 />
             </MainLayout>
-            <Fab onClick={handleClickOpen} color="primary" aria-label="add" sx={{ position: 'fixed', bottom: 30, right: 30 }}>
+            <BasicSpeedDial/>
+            {/* <Fab onClick={handleClickOpen} color="primary" aria-label="add" sx={{ position: 'fixed', bottom: 30, right: 30 }}>
                 <AddIcon sx={{ color: 'white' }} />
-            </Fab>
+            </Fab> */}
         </>
     )
 }

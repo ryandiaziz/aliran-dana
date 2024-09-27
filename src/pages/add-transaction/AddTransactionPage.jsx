@@ -25,11 +25,11 @@ const AddTransactionPage = () => {
         transaction_type: "",
         transaction_amount: "",
         transaction_note: "",
-        transaction_date: dayjs().format('DD/MM/YYYY'),
+        transaction_date: dayjs().format('YYYY-MM-DD HH:mm:ss.SSS'),
         user_id: 2,
         category_id: "",
         account_id: ""
-    });    
+    });
 
     const handleChange = (e) => {
         let { name, value } = e.target;
@@ -43,15 +43,11 @@ const AddTransactionPage = () => {
     };
 
     const handleDateChange = (date) => {
-        // console.log(date.$d);
-        // const timestamp = date.$d.toISOString()
         let dateFormat = date.format('YYYY-MM-DD HH:mm:ss.SSS');
         setDate(date);
         setFormValues((prevValues) => ({
             ...prevValues,
             transaction_date: dateFormat,
-
-            // new_date: timestamp
         }));
     };
 
