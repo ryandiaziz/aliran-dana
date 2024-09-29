@@ -5,8 +5,6 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers';
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { useSnackbar } from "notistack";
 
 import SelectInput from "../../components/elements/Inputs/SelectInput";
 import TextInput from "../../components/elements/Inputs/TextInput";
@@ -14,10 +12,8 @@ import useTransaction from "./useTransaction";
 import { createTransactions } from "../../redux/transaction.js/transactionReducers";
 
 const AddTransactionPage = () => {
-    const { transactionTypesItems, categoryItems, accountItems } = useTransaction();
-    const { isLoading, isError, errorMessage } = useSelector((state) => state.transaction.create);
-    const { enqueueSnackbar } = useSnackbar();
-    const navigate = useNavigate();
+    const { categoryItems, accountItems, transactionTypesItems } = useTransaction();
+    const { isLoading } = useSelector((state) => state.transaction.create);
 
     const dispatch = useDispatch();
     const [date, setDate] = useState(dayjs());
@@ -55,15 +51,6 @@ const AddTransactionPage = () => {
         e.preventDefault();
         console.log(formValues);    
         dispatch(createTransactions(formValues));
-
-        if (!isLoading) {
-            if (isError) {
-                enqueueSnackbar(errorMessage, { variant: "error" });
-            } else {
-                enqueueSnackbar("Berhasil menambahkan", { variant: "success" });
-                navigate("/");
-            }
-        }
     }
 
     return (

@@ -24,6 +24,10 @@ const navItems = [
     {
         name: 'Accounts',
         path: '/accounts'
+    },
+    {
+        name: 'Categories',
+        path: '/categories'
     }
 ];
 

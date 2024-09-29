@@ -34,7 +34,7 @@ const transactionSlice = createSlice({
         });
         builder.addCase(listTransactions.fulfilled, (state, action) => {
             state.list.isLoading = false;
-            state.list.transactions = action.payload.response.data;
+            if (action.payload.response) state.list.transactions = action.payload.response.data;
         });
         builder.addCase(listTransactions.rejected, (state, action) => {
             state.list.isLoading = false;

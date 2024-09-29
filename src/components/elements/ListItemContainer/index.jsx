@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import { styled } from "@mui/material"
 
-const ListItemContainer = ({children}) => {
+const ListItemContainer = ({children, onClick}) => {
     const Container = styled('li')(({ theme }) => ({
         display: 'flex',
         justifyContent: 'flex-start',
@@ -18,7 +18,7 @@ const ListItemContainer = ({children}) => {
         }
     }))
     return (
-        <Container>{children}</Container>
+        <Container onClick={onClick}>{children}</Container>
     )
 }
 

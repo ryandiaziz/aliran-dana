@@ -5,7 +5,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Grid from '@mui/material/Grid';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import CategoryIcon from '@mui/icons-material/Category';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
@@ -16,17 +16,16 @@ import ListItemContainer from "../../components/elements/ListItemContainer";
 import Wrapper from '../../components/elements/Wrapper';
 import PrimaryText from "../../components/elements/Texts/PrimaryText";
 import SecondaryText from "../../components/elements/Texts/SecondaryText";
-import { showRupiah } from "../../helper/helper";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setSelectedAccount } from "../../redux/account/accountSlice";
 import { setDialogOpen } from "../../redux/dialog/dialogSlice";
+import { setSelectedCategory } from "../../redux/category/categorySlice";
 
 const Demo = styled('div')(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
 }));
 
-const renderAccountItems = (items, onClick, dispatch) => {
+const renderCategoryItems = (items, onClick, dispatch) => {
     const ListItemContent = styled('div')({
         display: 'flex',
         justifyContent: 'space-between',
@@ -42,30 +41,28 @@ const renderAccountItems = (items, onClick, dispatch) => {
         justifyContent: 'space-between',
     }
 
-    const handleDeleteAccount = (e, id) => {
+    const handleDeleteCategory = (e, id) => {
         e.stopPropagation();
         dispatch(setDialogOpen({
-            type: 'delete-account',
+            type: 'delete-category',
             data: id,
             desc : 'Deleting this will affect the related transaction data'
         }));
     }
 
-    console.log(items);
-
     return items.map((item, i) => (
         <ListItemContainer key={item.name + i} onClick={() => onClick(item)}>
             <ListItemAvatar>
-                <Avatar>
-                    <AccountBalanceIcon />
+                <Avatar sx={{ backgroundColor : item.type === 'income' ? '#50B498' : '#DF826C' }}>
+                    <CategoryIcon />
                 </Avatar>
             </ListItemAvatar>
             <ListItemContent>
                 <Wrapper style={wrapperStyle1}>
                     <PrimaryText text={item.name} />
-                    <SecondaryText text={showRupiah(item.balance)} />
+                    <SecondaryText text={item.type} />
                 </Wrapper>
-                <IconButton edge="end" aria-label="delete" onClick={(e) => handleDeleteAccount(e, item.value)}>
+                <IconButton edge="end" aria-label="delete" onClick={(e) => handleDeleteCategory(e, item.value)}>
                     <DeleteIcon />
                 </IconButton>
             </ListItemContent>
@@ -73,31 +70,33 @@ const renderAccountItems = (items, onClick, dispatch) => {
     ));
 }
 
-const AccountPage = () => {
+const CategoriesPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { accountItems } = useData();
+    const { categoryItems } = useData();
     const [dense] = React.useState(false);
 
-    const handleOnClick = (account) => {
-        dispatch(setSelectedAccount(account));
-        navigate(`/accounts/${account.name}`)
+    const handleOnClick = (category) => {
+        dispatch(setSelectedCategory(category));
+        navigate(`/categories/${category.name}`)
     }
 
     return (
-        <MainLayout>
-            <Grid item xs={12} md={6}>
-                <Demo>
-                    <List dense={dense}>
-                        {renderAccountItems(accountItems, handleOnClick, dispatch)}
-                    </List>
-                </Demo>
-            </Grid>
-            <Fab onClick={() => navigate("/accounts/add-account")} color="primary" aria-label="add" sx={{ position: 'fixed', bottom: 30, right: 30 }}>
+        <>
+            <MainLayout>
+                <Grid item xs={12} md={6}>
+                    <Demo>
+                        <List dense={dense}>
+                            {renderCategoryItems(categoryItems, handleOnClick, dispatch)}
+                        </List>
+                    </Demo>
+                </Grid>
+            </MainLayout>
+            <Fab onClick={() => navigate("/categories/add-category")} color="primary" aria-label="add" sx={{ position: 'fixed', bottom: 30, right: 30 }}>
                 <AddIcon sx={{ color: 'white' }} />
             </Fab>
-        </MainLayout>
+        </>
     )
 }
 
-export default AccountPage
+export default CategoriesPage
