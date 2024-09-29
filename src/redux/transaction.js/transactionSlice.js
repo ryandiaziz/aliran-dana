@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-// import { setpagination } from './paginationSlice'
-import { listTransactions, createTransactions } from './transactionReducers'
+import { listTransactions, createTransactions, transferTransactions } from './transactionReducers'
 
 const initialState = {
     list: {
@@ -15,7 +14,13 @@ const initialState = {
         isError: false,
         errorMessage: '',
         transactions: []
-    }
+    },
+    transfer: {
+        isLoading: false,
+        isError: false,
+        errorMessage: '',
+        transactions: []
+    },
 }
 
 const transactionSlice = createSlice({
@@ -54,6 +59,20 @@ const transactionSlice = createSlice({
             state.create.isLoading = false;
             state.create.isError = true;
             state.create.errorMessage = action.payload;
+        });
+        // TRANSFER TRANSACTION
+        builder.addCase(transferTransactions.pending, (state) => {
+            state.transfer.isLoading = true;
+            state.transfer.isError = false;
+        });
+        builder.addCase(transferTransactions.fulfilled, (state, action) => {
+            state.transfer.isLoading = false;
+            state.transfer.transactions = action.payload;
+        });
+        builder.addCase(transferTransactions.rejected, (state, action) => {
+            state.transfer.isLoading = false;
+            state.transfer.isError = true;
+            state.transfer.errorMessage = action.payload;
         });
     }
 })

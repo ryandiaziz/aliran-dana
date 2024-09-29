@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 const actions = [
     { icon: <CurrencyExchangeIcon />, name: 'add transaction', link: '/add-transaction' },
-    { icon: <SwapHorizIcon />, name: 'balance transfer', link: '' },
+    { icon: <SwapHorizIcon />, name: 'balance transfer', link: '/transfer' },
     { icon: <ImportContactsIcon />, name: 'debt', link: '' },
 ];
 

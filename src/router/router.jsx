@@ -11,12 +11,14 @@ import AccountPage from "../pages/accounts/AccountPage";
 import AddAccountPage from "../pages/add-account/AddAccountPage";
 import CategoriesPage from "../pages/categories/categoriesPage";
 import AddCategoryPage from "../pages/add-category/AddCategoryPage";
+import TransferPage from "../pages/transfer/TransferPage";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<RootLayout />}>
             <Route path="" element={<HomePage />} />
             <Route path="add-transaction" element={<AddTransactionPage />} />
+            <Route path="transfer" element={<TransferPage/>} />
             <Route path="accounts" element={<AccountPage />}/>
             <Route path="accounts/add-account" element={<AddAccountPage />} />
             <Route path="accounts/:account" element={<AddAccountPage />} />

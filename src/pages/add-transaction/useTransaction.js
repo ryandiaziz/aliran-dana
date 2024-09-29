@@ -6,11 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const useTransaction = () => {
-    const [isInitialRender, setIsInitialRender] = useState(true);
-    const { isLoading, isError, errorMessage } = useSelector((state) => state.transaction.create);
-    const { categoryItems, accountItems, transactionTypesItems } = useData();
-    const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
+    const { enqueueSnackbar } = useSnackbar();
+    const [isInitialRender, setIsInitialRender] = useState(true);
+    const { categoryItems, accountItems, transactionTypesItems } = useData();
+    const { isLoading, isError, errorMessage } = useSelector((state) => state.transaction.create);
 
     useEffect(() => {
         if (isInitialRender) {
