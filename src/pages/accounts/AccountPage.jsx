@@ -51,8 +51,6 @@ const renderAccountItems = (items, onClick, dispatch) => {
         }));
     }
 
-    console.log(items);
-
     return items.map((item, i) => (
         <ListItemContainer key={item.name + i} onClick={() => onClick(item)}>
             <ListItemAvatar>

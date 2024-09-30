@@ -49,7 +49,6 @@ const AddTransactionPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formValues);    
         dispatch(createTransactions(formValues));
     }
 

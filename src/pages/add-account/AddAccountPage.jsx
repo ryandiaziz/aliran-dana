@@ -9,13 +9,12 @@ import TextInput from "../../components/elements/Inputs/TextInput";
 import { createAccount, updateAccount } from "../../redux/account/accountReducers";
 
 const AddAccountPage = () => {
-    const [isInitialRender, setIsInitialRender] = useState(true);
-    const { loading, error, selected } = useSelector((state) => state.account);
-    const { enqueueSnackbar } = useSnackbar();
-    const navigate = useNavigate();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { account } = useParams();
-    
+    const { enqueueSnackbar } = useSnackbar();
+    const [isInitialRender, setIsInitialRender] = useState(true);
+    const { loading, error, selected } = useSelector((state) => state.account);    
     const [formValues, setFormValues] = useState({
         name: "",
         balance: 0,
@@ -34,26 +33,19 @@ const AddAccountPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("form values : ", formValues);
         if (account) dispatch(updateAccount(formValues));
         else dispatch(createAccount(formValues));
     }
 
     useEffect(() => {
-        console.log(isInitialRender);
-        
         if (isInitialRender) {
             if(account){
-                console.log(selected);
-                
                 setFormValues({
                     id : selected.id,
                     name : selected.name,
                     balance : selected.balance,
                     user_id : 2
                 })
-                console.log(formValues);
-                
             }
             setIsInitialRender(false);
             return;

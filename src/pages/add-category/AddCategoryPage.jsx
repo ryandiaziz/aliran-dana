@@ -35,25 +35,18 @@ const AddCategoryPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("form values : ", formValues);
         if (category) dispatch(updateCategory(formValues));
         else dispatch(createCategory(formValues));
     }
 
     useEffect(() => {
-        console.log(isInitialRender);
-        
         if (isInitialRender) {
             if (category) {
-                console.log(selected);
-
                 setFormValues({
                     category_id: selected.id,
                     category_name: selected.name,
                     category_type: selected.type,
                 })
-                console.log(formValues);
-
             }
             setIsInitialRender(false);
             return;

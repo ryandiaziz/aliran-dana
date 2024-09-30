@@ -21,7 +21,7 @@ const TransferPage = () => {
     const { enqueueSnackbar } = useSnackbar();
     const [date, setDate] = useState(dayjs());
     const [isInitialRender, setIsInitialRender] = useState(true);
-    const { isLoading, isError, errorMessage } = useSelector((state) => state.transaction.create);
+    const { isLoading, isError, errorMessage } = useSelector((state) => state.transaction.transfer);
     const [formValues, setFormValues] = useState({
         user_id: 2,
         from_account: "",
@@ -53,7 +53,6 @@ const TransferPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formValues);
         dispatch(transferTransactions(formValues));
     }
 

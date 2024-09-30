@@ -32,8 +32,6 @@ export const createTransactions = createAsyncThunk('transaction/createTransactio
 
 export const transferTransactions = createAsyncThunk('transaction/transferTransaction', async (data, thunkAPI) => {
     try {
-        console.log("MASOK");
-        
         const sendBalanceBody = {
             transaction_note: `Mengirim saldo`,
             transaction_amount: data.transaction_amount + data.admin_fee,
