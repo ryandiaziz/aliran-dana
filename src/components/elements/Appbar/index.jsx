@@ -53,7 +53,7 @@ const AppbarCus = (props) => {
             <Divider />
             <List>
                 {navItems.map((item) => (
-                    <ListItem key={item.name} disablePadding>
+                    <ListItem key={item.name} disablePadding onClick={() => goToPage(item.path)}>
                         <ListItemButton sx={{ textAlign: 'center' }}>
                             <ListItemText primary={item.name} />
                         </ListItemButton>
