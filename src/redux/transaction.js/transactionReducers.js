@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const URL = 'http://localhost:3000/api/transactions';
+const URL = 'https://aliran-dana-api.vercel.app/api/transactions';
 
 export const listTransactions = createAsyncThunk('transaction/listTransactions', async (data, thunkAPI) => {
     try {

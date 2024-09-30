@@ -2,7 +2,7 @@ import {createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { setDialogOpen } from '../dialog/dialogSlice';
 
-const URL = 'http://localhost:3000/api/accounts';
+const URL = 'https://aliran-dana-api.vercel.app/api/accounts';
 
 export const listAccounts = createAsyncThunk('account/listAccounts', async (data, thunkAPI) => {
     try {
