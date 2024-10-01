@@ -1,12 +1,13 @@
-import { createSlice} from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 import { createCategory, deleteCategory, listCategories, updateCategory } from './categoryReducers'
 
 const initialState = {
+    isCategoryInitial: true,
     loading: false,
     categories: [],
     error: '',
-    result:{},
+    result: {},
     selected: {
         id: 0,
         name: '',
@@ -21,7 +22,7 @@ const categorySlice = createSlice({
         setSelectedCategory: (state, action) => {
             state.selected.id = action.payload.value;
             state.selected.name = action.payload.name;
-            state.selected.type = action.payload.type;            
+            state.selected.type = action.payload.type;
         }
     },
     extraReducers: (builder) => {
@@ -29,8 +30,9 @@ const categorySlice = createSlice({
         builder.addCase(listCategories.pending, (state) => {
             state.loading = true
         })
-        builder.addCase(listCategories.fulfilled, (state, action) => {            
+        builder.addCase(listCategories.fulfilled, (state, action) => {
             state.loading = false
+            if (state.isCategoryInitial) state.isCategoryInitial = false
             state.categories = action.payload.response.data
         })
         builder.addCase(listCategories.rejected, (state, action) => {
@@ -77,4 +79,4 @@ const categorySlice = createSlice({
 })
 
 export default categorySlice.reducer;
-export const {setSelectedCategory} = categorySlice.actions;
+export const { setSelectedCategory } = categorySlice.actions;

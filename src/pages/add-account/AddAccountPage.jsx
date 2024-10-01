@@ -16,8 +16,8 @@ const AddAccountPage = () => {
     const [isInitialRender, setIsInitialRender] = useState(true);
     const { loading, error, selected } = useSelector((state) => state.account);    
     const [formValues, setFormValues] = useState({
-        name: "",
-        balance: 0,
+        account_name: "",
+        account_balance: 0,
         user_id: 2
     });
 
@@ -41,10 +41,9 @@ const AddAccountPage = () => {
         if (isInitialRender) {
             if(account){
                 setFormValues({
-                    id : selected.id,
-                    name : selected.name,
-                    balance : selected.balance,
-                    user_id : 2
+                    account_id : selected.id,
+                    account_name : selected.name,
+                    account_balance : selected.balance
                 })
             }
             setIsInitialRender(false);
@@ -71,16 +70,16 @@ const AddAccountPage = () => {
             <TextInput
                 label={'Account'}
                 type={'text'}
-                name={'name'}
-                value={formValues.name}
+                name={'account_name'}
+                value={formValues.account_name}
                 onChange={handleChange}
             />
             <TextInput
                 label={'Balance'}
                 type={'text'}
                 inputMode="numeric"
-                name={'balance'}
-                value={formValues.balance}
+                name={'account_balance'}
+                value={formValues.account_balance}
                 onChange={handleChange}
             />
             <Button type="submit" variant="contained" sx={{ color: 'white' }} disabled={loading}>SIMPAN</Button>

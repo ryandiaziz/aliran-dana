@@ -8,3 +8,7 @@ export const showDateTime = (value) => {
     const date = dayjs(value);
     return date.format('YYYY-MM-DD HH:mm');
 }
+
+export const getCurrentDate = () =>{
+    return dayjs().format('YYYY-MM-DD');
+}

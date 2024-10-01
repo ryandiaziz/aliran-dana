@@ -3,6 +3,11 @@ import { createSlice } from '@reduxjs/toolkit'
 import { listTransactions, createTransactions, transferTransactions } from './transactionReducers'
 
 const initialState = {
+    isTransactionInitial: true,
+    count: {
+        income: 0,
+        expense: 0
+    },
     list: {
         isLoading: false,
         isError: false,
@@ -39,7 +44,12 @@ const transactionSlice = createSlice({
         });
         builder.addCase(listTransactions.fulfilled, (state, action) => {
             state.list.isLoading = false;
-            if (action.payload.response) state.list.transactions = action.payload.response.data;
+            if (state.isTransactionInitial) state.isTransactionInitial = false;
+            if (action.payload.response) {
+                state.list.transactions = action.payload.response.data.transactions;
+                state.count.income = action.payload.response.data.count.income;
+                state.count.expense = action.payload.response.data.count.expense;
+            }
         });
         builder.addCase(listTransactions.rejected, (state, action) => {
             state.list.isLoading = false;

@@ -34,16 +34,10 @@ export const createAccount = createAsyncThunk('account/createAccount', async (da
 
 export const updateAccount = createAsyncThunk('account/updateAccount', async (data, thunkAPI) => {
     try {
-        const body = {
-            account_id : data.id,
-            account_name : data.name,
-            account_balance : data.balance
-        }
-
         const response = await axios({
             method: 'PUT',
             url: `${URL}`,
-            data: body
+            data
         })
         if (!response.data.metaData.status) throw new Error(response.data.metaData.message);
         thunkAPI.dispatch(listAccounts());
