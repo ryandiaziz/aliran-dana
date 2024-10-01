@@ -9,6 +9,9 @@ import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
+import Card from '@mui/material/Card';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 
 import MainLayout from "../../components/layouts/MainLayout";
 import useData from "../../helper/useData";
@@ -18,9 +21,10 @@ import PrimaryText from "../../components/elements/Texts/PrimaryText";
 import SecondaryText from "../../components/elements/Texts/SecondaryText";
 import { showRupiah } from "../../helper/helper";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSelectedAccount } from "../../redux/account/accountSlice";
 import { setDialogOpen } from "../../redux/dialog/dialogSlice";
+import AmountText from "../../components/elements/Texts/AmoutText";
 
 const Demo = styled('div')(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
@@ -47,7 +51,7 @@ const renderAccountItems = (items, onClick, dispatch) => {
         dispatch(setDialogOpen({
             type: 'delete-account',
             data: id,
-            desc : 'Deleting this will affect the related transaction data'
+            desc: 'Deleting this will affect the related transaction data'
         }));
     }
 
@@ -76,6 +80,7 @@ const AccountPage = () => {
     const navigate = useNavigate();
     const { accountItems } = useData();
     const [dense] = React.useState(false);
+    const { totalBalance } = useSelector((state) => state.account);
 
     const handleOnClick = (account) => {
         dispatch(setSelectedAccount(account));
@@ -84,6 +89,17 @@ const AccountPage = () => {
 
     return (
         <MainLayout>
+            <Card variant="outlined" sx={{}}>
+                <Box>
+                    <Stack
+                        direction="row"
+                        sx={{ justifyContent: 'space-between', alignItems: 'center', padding: 2 }}
+                    >
+                        <PrimaryText text={'Total'} />
+                        <AmountText text={showRupiah(totalBalance)} />
+                    </Stack>                    
+                </Box>
+            </Card>
             <Grid item xs={12} md={6}>
                 <Demo>
                     <List dense={dense}>

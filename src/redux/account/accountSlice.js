@@ -3,7 +3,9 @@ import { createSlice } from '@reduxjs/toolkit'
 import { createAccount, deleteAccount, listAccounts, updateAccount } from './accountReducers'
 
 const initialState = {
+    isAccountInitial: true,
     loading: false,
+    totalBalance: 0,
     accounts: [],
     error: '',
     result: {},
@@ -21,7 +23,7 @@ const accountSlice = createSlice({
         setSelectedAccount: (state, action) => {
             state.selected.id = action.payload.value;
             state.selected.name = action.payload.name;
-            state.selected.balance = action.payload.balance;            
+            state.selected.balance = action.payload.balance;
         }
     },
     extraReducers: (builder) => {
@@ -31,7 +33,9 @@ const accountSlice = createSlice({
         });
         builder.addCase(listAccounts.fulfilled, (state, action) => {
             state.loading = false;
-            state.accounts = action.payload.response.data;
+            if (state.isAccountInitial) state.isAccountInitial = false;
+            state.accounts = action.payload.response.data.accounts;
+            state.totalBalance = action.payload.response.data.total;
         });
         builder.addCase(listAccounts.rejected, (state, action) => {
             state.loading = false;

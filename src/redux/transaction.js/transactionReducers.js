@@ -1,5 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { getCurrentDate } from '../../helper/helper';
+import { listAccounts } from '../account/accountReducers';
 
 const URL = 'http://localhost:3000/api/transactions';
 
@@ -23,7 +25,8 @@ export const createTransactions = createAsyncThunk('transaction/createTransactio
             data
         })
         if (!response.data.metaData.status) throw new Error(response.data.metaData.message);
-        thunkAPI.dispatch(listTransactions())
+        thunkAPI.dispatch(listTransactions(getCurrentDate()))
+        thunkAPI.dispatch(listAccounts())
         return response.data;
     } catch (error) {
         return thunkAPI.rejectWithValue(error.message)
@@ -65,7 +68,8 @@ export const transferTransactions = createAsyncThunk('transaction/transferTransa
         })
 
         if (!responseReceiveBalance.data.metaData.status) throw new Error(responseReceiveBalance.data.metaData.message);
-        thunkAPI.dispatch(listTransactions())
+        thunkAPI.dispatch(listTransactions(getCurrentDate()))
+        thunkAPI.dispatch(listAccounts())
         return responseReceiveBalance.data;
     } catch (error) {
         return thunkAPI.rejectWithValue(error.message)
