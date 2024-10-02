@@ -1,20 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import { Box, Button } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import { useSnackbar } from "notistack";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 
 import TextInput from "../../components/elements/Inputs/TextInput";
 import SelectInput from "../../components/elements/Inputs/SelectInput";
 import { createCategory, updateCategory } from "../../redux/category/categoryReducers";
+import useAddCategory from "./useAddCategory";
 
 const AddCategoryPage = () => {
-    const [isInitialRender, setIsInitialRender] = useState(true);
     const transactionTypesItems = [{ name: "Pendapatan", value: "income" }, { name: "Pengeluaran", value: "expense" }];
-    const { loading, error, selected } = useSelector((state) => state.category);
-    const { enqueueSnackbar } = useSnackbar();
-    const navigate = useNavigate();
+    const { selected, create, update } = useAddCategory();
     const dispatch = useDispatch();
     const { category } = useParams();
 
@@ -40,28 +37,14 @@ const AddCategoryPage = () => {
     }
 
     useEffect(() => {
-        if (isInitialRender) {
-            if (category) {
-                setFormValues({
-                    category_id: selected.id,
-                    category_name: selected.name,
-                    category_type: selected.type,
-                })
-            }
-            setIsInitialRender(false);
-            return;
+        if (category) {
+            setFormValues({
+                category_id: selected.id,
+                category_name: selected.name,
+                category_type: selected.type,
+            })
         }
-
-        if (!loading) {
-            if (error) {
-                enqueueSnackbar(error, { variant: "error" });
-            } else {
-                enqueueSnackbar("Berhasil menambahkan", { variant: "success" });
-                navigate("/categories");
-            }
-        }
-    }, [loading])
-
+    }, [])
 
     return (
         <Box
@@ -83,7 +66,7 @@ const AddCategoryPage = () => {
                 name={'category_type'}
                 label={'Category Type'}
             />
-            <Button type="submit" variant="contained" sx={{ color: 'white' }} disabled={loading}>SIMPAN</Button>
+            <Button type="submit" variant="contained" sx={{ color: 'white' }} disabled={create.isLoading || update.isLoading}>SIMPAN</Button>
         </Box>
     )
 }

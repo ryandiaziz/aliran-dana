@@ -1,7 +1,7 @@
 import CircularProgress from '@mui/material/CircularProgress';
 import { styled } from '@mui/material'
 
-const Loading = () => {
+const ShowLoading = () => {
     const LoadingContainer = styled('div')({
         display: 'flex',
         alignItems: 'center',
@@ -15,4 +15,4 @@ const Loading = () => {
     )
 }
 
-export default Loading
+export default ShowLoading

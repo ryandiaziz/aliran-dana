@@ -25,6 +25,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSelectedAccount } from "../../redux/account/accountSlice";
 import { setDialogOpen } from "../../redux/dialog/dialogSlice";
 import AmountText from "../../components/elements/Texts/AmoutText";
+import ShowLoading from "../../components/elements/Loading";
 
 const Demo = styled('div')(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
@@ -80,7 +81,7 @@ const AccountPage = () => {
     const navigate = useNavigate();
     const { accountItems } = useData();
     const [dense] = React.useState(false);
-    const { totalBalance } = useSelector((state) => state.account);
+    const { totalBalance, list } = useSelector((state) => state.account);
 
     const handleOnClick = (account) => {
         dispatch(setSelectedAccount(account));
@@ -97,16 +98,19 @@ const AccountPage = () => {
                     >
                         <PrimaryText text={'Total'} />
                         <AmountText text={showRupiah(totalBalance)} />
-                    </Stack>                    
+                    </Stack>
                 </Box>
             </Card>
-            <Grid item xs={12} md={6}>
-                <Demo>
-                    <List dense={dense}>
-                        {renderAccountItems(accountItems, handleOnClick, dispatch)}
-                    </List>
-                </Demo>
-            </Grid>
+            {
+                list.isLoading ? <ShowLoading />
+                    : <Grid item xs={12} md={6}>
+                        <Demo>
+                            <List dense={dense}>
+                                {renderAccountItems(accountItems, handleOnClick, dispatch)}
+                            </List>
+                        </Demo>
+                    </Grid>
+            }
             <Fab onClick={() => navigate("/accounts/add-account")} color="primary" aria-label="add" sx={{ position: 'fixed', bottom: 30, right: 30 }}>
                 <AddIcon sx={{ color: 'white' }} />
             </Fab>

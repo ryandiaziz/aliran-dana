@@ -1,20 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import { Box, Button } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import { useSnackbar } from "notistack";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 
 import TextInput from "../../components/elements/Inputs/TextInput";
 import { createAccount, updateAccount } from "../../redux/account/accountReducers";
+import useAddAccount from "./useAddAccount";
 
 const AddAccountPage = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const { account } = useParams();
-    const { enqueueSnackbar } = useSnackbar();
-    const [isInitialRender, setIsInitialRender] = useState(true);
-    const { loading, error, selected } = useSelector((state) => state.account);    
+    const { selected, create, update } = useAddAccount();
     const [formValues, setFormValues] = useState({
         account_name: "",
         account_balance: 0,
@@ -23,8 +20,7 @@ const AddAccountPage = () => {
 
     const handleChange = (e) => {
         let { name, value } = e.target;
-        if (name === 'balance') value = +value;
-
+        if (name === 'balance') value = parseInt(value);
         setFormValues((prevValues) => ({
             ...prevValues,
             [name]: value,
@@ -38,28 +34,14 @@ const AddAccountPage = () => {
     }
 
     useEffect(() => {
-        if (isInitialRender) {
-            if(account){
-                setFormValues({
-                    account_id : selected.id,
-                    account_name : selected.name,
-                    account_balance : selected.balance
-                })
-            }
-            setIsInitialRender(false);
-            return;
+        if (account) {
+            setFormValues({
+                account_id: selected.id,
+                account_name: selected.name,
+                account_balance: selected.balance
+            })
         }
-
-        if (!loading) {
-            if (error) {
-                enqueueSnackbar(error, { variant: "error" });
-            } else {
-                enqueueSnackbar("Berhasil menambahkan", { variant: "success" });
-                navigate("/accounts");
-            }
-        }
-    }, [loading])
-
+    }, [])
 
     return (
         <Box
@@ -76,13 +58,13 @@ const AddAccountPage = () => {
             />
             <TextInput
                 label={'Balance'}
-                type={'text'}
+                type={'number'}
                 inputMode="numeric"
                 name={'account_balance'}
                 value={formValues.account_balance}
                 onChange={handleChange}
             />
-            <Button type="submit" variant="contained" sx={{ color: 'white' }} disabled={loading}>SIMPAN</Button>
+            <Button type="submit" variant="contained" sx={{ color: 'white' }} disabled={create.isLoading || update.isLoading}>SIMPAN</Button>
         </Box>
     )
 }

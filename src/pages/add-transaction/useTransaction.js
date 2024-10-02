@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import useData from "../../helper/useData";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import useData from "../../helper/useData";
 
 const useTransaction = () => {
     const navigate = useNavigate();
