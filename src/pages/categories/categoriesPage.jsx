@@ -17,9 +17,10 @@ import Wrapper from '../../components/elements/Wrapper';
 import PrimaryText from "../../components/elements/Texts/PrimaryText";
 import SecondaryText from "../../components/elements/Texts/SecondaryText";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setDialogOpen } from "../../redux/dialog/dialogSlice";
 import { setSelectedCategory } from "../../redux/category/categorySlice";
+import ShowLoading from "../../components/elements/Loading";
 
 const Demo = styled('div')(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
@@ -46,14 +47,14 @@ const renderCategoryItems = (items, onClick, dispatch) => {
         dispatch(setDialogOpen({
             type: 'delete-category',
             data: id,
-            desc : 'Deleting this will affect the related transaction data'
+            desc: 'Deleting this will affect the related transaction data'
         }));
     }
 
     return items.map((item, i) => (
         <ListItemContainer key={item.name + i} onClick={() => onClick(item)}>
             <ListItemAvatar>
-                <Avatar sx={{ backgroundColor : item.type === 'income' ? '#50B498' : '#DF826C' }}>
+                <Avatar sx={{ backgroundColor: item.type === 'income' ? '#50B498' : '#DF826C' }}>
                     <CategoryIcon />
                 </Avatar>
             </ListItemAvatar>
@@ -75,6 +76,7 @@ const CategoriesPage = () => {
     const navigate = useNavigate();
     const { categoryItems } = useData();
     const [dense] = React.useState(false);
+    const { list } = useSelector((state) => state.category);
 
     const handleOnClick = (category) => {
         dispatch(setSelectedCategory(category));
@@ -84,13 +86,16 @@ const CategoriesPage = () => {
     return (
         <>
             <MainLayout>
-                <Grid item xs={12} md={6}>
-                    <Demo>
-                        <List dense={dense}>
-                            {renderCategoryItems(categoryItems, handleOnClick, dispatch)}
-                        </List>
-                    </Demo>
-                </Grid>
+                {
+                    list.isLoading ? <ShowLoading />
+                        : <Grid item xs={12} md={6}>
+                            <Demo>
+                                <List dense={dense}>
+                                    {renderCategoryItems(categoryItems, handleOnClick, dispatch)}
+                                </List>
+                            </Demo>
+                        </Grid>
+                }
             </MainLayout>
             <Fab onClick={() => navigate("/categories/add-category")} color="primary" aria-label="add" sx={{ position: 'fixed', bottom: 30, right: 30 }}>
                 <AddIcon sx={{ color: 'white' }} />

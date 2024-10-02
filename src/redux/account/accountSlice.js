@@ -4,11 +4,32 @@ import { createAccount, deleteAccount, listAccounts, updateAccount } from './acc
 
 const initialState = {
     isAccountInitial: true,
-    loading: false,
-    totalBalance: 0,
     accounts: [],
-    error: '',
-    result: {},
+    totalBalance: 0,
+    list: {
+        isLoading: false,
+        isError: false,
+        errorMessage: '',
+        result: {}
+    },
+    create: {
+        isLoading: false,
+        isError: false,
+        errorMessage: '',
+        result: {}
+    },
+    update: {
+        isLoading: false,
+        isError: false,
+        errorMessage: '',
+        result: {}
+    },
+    delete: {
+        isLoading: false,
+        isError: false,
+        errorMessage: '',
+        result: {}
+    },
     selected: {
         id: 0,
         name: '',
@@ -29,53 +50,61 @@ const accountSlice = createSlice({
     extraReducers: (builder) => {
         // FETCH LIST ACCOUNT
         builder.addCase(listAccounts.pending, (state) => {
-            state.loading = true;
+            state.list.isLoading = true;
+            state.list.isError = false;
         });
         builder.addCase(listAccounts.fulfilled, (state, action) => {
-            state.loading = false;
             if (state.isAccountInitial) state.isAccountInitial = false;
+            state.list.isLoading = false;
             state.accounts = action.payload.response.data.accounts;
             state.totalBalance = action.payload.response.data.total;
         });
         builder.addCase(listAccounts.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.payload;
+            state.list.isLoading = false;
+            state.list.isError = true;
+            state.list.errorMessage = action.payload;
         });
         // CREATE ACCOUNT
         builder.addCase(createAccount.pending, (state) => {
-            state.loading = true;
+            state.create.isLoading = true;
+            state.create.isError = false;
         });
         builder.addCase(createAccount.fulfilled, (state, action) => {
-            state.loading = false;
-            state.result = action.payload;
+            state.create.isLoading = false;
+            state.create.result = action.payload;
         });
         builder.addCase(createAccount.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.payload;
+            state.create.isLoading = false;
+            state.create.isError = true;
+            state.create.errorMessage = action.payload;
         })
         // UPDATE ACCOUNT
         builder.addCase(updateAccount.pending, (state) => {
-            state.loading = true;
+            state.update.isLoading = true;
+            state.update.isError = false;
         })
         builder.addCase(updateAccount.fulfilled, (state, action) => {
-            state.loading = false;
-            state.result = action.payload;
+            state.update.isLoading = false;
+            state.update.result = action.payload;
         })
         builder.addCase(updateAccount.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.payload;
+            state.update.isLoading = false;
+            state.update.isError = true;
+            state.update.errorMessage = action.payload;
         })
         // DELETE ACCOUNT
         builder.addCase(deleteAccount.pending, (state) => {
-            state.loading = true;
+            state.delete.isLoading = true;
+            state.delete.isError = false;
         })
         builder.addCase(deleteAccount.fulfilled, (state, action) => {
-            state.loading = false;
-            state.result = action.payload;
+            state.delete.isLoading = false;
+            state.delete.result = action.payload;
         })
         builder.addCase(deleteAccount.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.payload;
+            state.delete.isLoading = false;
+            state.delete.isError = true;
+            state.delete.errorMessage = action.payload;
         })
     }
 })

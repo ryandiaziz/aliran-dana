@@ -14,7 +14,6 @@ import { createTransactions } from "../../redux/transaction.js/transactionReduce
 const AddTransactionPage = () => {
     const { categoryItems, accountItems, transactionTypesItems } = useTransaction();
     const { isLoading } = useSelector((state) => state.transaction.create);
-
     const dispatch = useDispatch();
     const [date, setDate] = useState(dayjs());
     const [formValues, setFormValues] = useState({
@@ -29,9 +28,7 @@ const AddTransactionPage = () => {
 
     const handleChange = (e) => {
         let { name, value } = e.target;
-
         if (name === 'transaction_amount') value = +value;
-
         setFormValues((prevValues) => ({
             ...prevValues,
             [name]: value,
@@ -56,7 +53,7 @@ const AddTransactionPage = () => {
         <Box
             component={'form'}
             onSubmit={handleSubmit}
-            sx={{ marginInline: 'auto', marginTop: '64px', paddingInline: 2, paddingBlock: 2, maxWidth: 768,  display: 'flex', flexDirection: 'column', gap: 2 }}
+            sx={{ marginInline: 'auto', marginTop: '64px', paddingInline: 2, paddingBlock: 2, maxWidth: 768, display: 'flex', flexDirection: 'column', gap: 2 }}
         >
             <SelectInput
                 value={formValues.transaction_type}

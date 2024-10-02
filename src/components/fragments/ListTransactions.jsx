@@ -2,14 +2,14 @@ import List from '@mui/material/List';
 import ListItemTrasaction from '../elements/ListItemTransaction';
 
 import { useSelector } from 'react-redux';
-import Loading from '../elements/Loading';
+import ShowLoading from '../elements/Loading';
 
 export default function ListTransactions() {
     const { transactions, isLoading } = useSelector((state) => state.transaction.list);
 
     return (
         isLoading
-            ? <Loading/>
+            ? <ShowLoading/>
             : <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
                 {
                     transactions.map((transaction) => (
