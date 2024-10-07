@@ -12,10 +12,11 @@ import useTransaction from "./useTransaction";
 import { createTransactions } from "../../redux/transaction.js/transactionReducers";
 
 const AddTransactionPage = () => {
-    const { categoryItems, accountItems, transactionTypesItems } = useTransaction();
-    const { isLoading } = useSelector((state) => state.transaction.create);
     const dispatch = useDispatch();
     const [date, setDate] = useState(dayjs());
+    const { isLoading } = useSelector((state) => state.transaction.create);
+    const [categories, setCategories] = useState([])
+    const { categoryItems, accountItems, transactionTypesItems } = useTransaction();
     const [formValues, setFormValues] = useState({
         transaction_type: "",
         transaction_amount: "",
@@ -29,6 +30,7 @@ const AddTransactionPage = () => {
     const handleChange = (e) => {
         let { name, value } = e.target;
         if (name === 'transaction_amount') value = +value;
+        if (name === 'transaction_type') handleCategory(value);
         setFormValues((prevValues) => ({
             ...prevValues,
             [name]: value,
@@ -49,6 +51,10 @@ const AddTransactionPage = () => {
         dispatch(createTransactions(formValues));
     }
 
+    const handleCategory = (type) => {
+        setCategories(categoryItems.filter((item) => item.type === type))
+    }
+
     return (
         <Box
             component={'form'}
@@ -64,7 +70,7 @@ const AddTransactionPage = () => {
             />
             <SelectInput
                 value={formValues.category_id}
-                values={categoryItems}
+                values={categories}
                 onChange={handleChange}
                 name={'category_id'}
                 label={'Kategori'}

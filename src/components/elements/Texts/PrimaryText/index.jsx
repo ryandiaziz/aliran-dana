@@ -4,8 +4,7 @@ import { styled, Typography } from '@mui/material'
 const PrimaryText = ({ text, color }) => {
     const Text = styled('div')(({ theme }) => ({
         color: color || theme.palette.textPrimary.main,
-        fontSize: 18,
-        width: '100%'
+        fontSize: 18
     }));
 
     return (

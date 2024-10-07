@@ -6,7 +6,8 @@ const initialState = {
     isTransactionInitial: true,
     count: {
         income: 0,
-        expense: 0
+        expense: 0,
+        total: 0
     },
     list: {
         isLoading: false,
@@ -49,6 +50,7 @@ const transactionSlice = createSlice({
                 state.list.transactions = action.payload.response.data.transactions;
                 state.count.income = action.payload.response.data.count.income;
                 state.count.expense = action.payload.response.data.count.expense;
+                state.count.total = action.payload.response.data.count.total;
             }
         });
         builder.addCase(listTransactions.rejected, (state, action) => {
