@@ -27,6 +27,14 @@ const TotalDailyTransaction = () => {
                     <PrimaryText text={'Expense'} />
                     <AmountText category='expense' text={showRupiah(count.expense)} />
                 </Stack>
+                <Divider />
+                <Stack
+                    direction="row"
+                    sx={{ justifyContent: 'space-between', alignItems: 'center', padding: 2 }}
+                >
+                    <PrimaryText text={'Total'} />
+                    <PrimaryText text={showRupiah(count.total)} />
+                </Stack>
             </Box>
         </Card>
     )
