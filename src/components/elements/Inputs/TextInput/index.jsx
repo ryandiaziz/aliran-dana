@@ -2,9 +2,9 @@
 import TextField from '@mui/material/TextField';
 
 export default function TextInput({ value, label, type, name, onChange, inputMode = 'text' }) {
-
     return (
         <TextField
+            sx={{ width: '100%' }}
             id="outlined-basic"
             variant="outlined"
             value={value}

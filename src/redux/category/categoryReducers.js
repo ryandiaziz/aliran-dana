@@ -1,6 +1,6 @@
 import {createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { setDialogOpen } from '../dialog/dialogSlice';
+import { setDialogOpen } from '../menu/menuSlice';
 
 const URL = 'http://localhost:3000/api/categories';
 

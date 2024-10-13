@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { listTransactions, createTransactions, transferTransactions } from './transactionReducers'
+import { filterTransactions, createTransactions, transferTransactions } from './transactionReducers'
 
 const initialState = {
     isTransactionInitial: true,
@@ -39,11 +39,11 @@ const transactionSlice = createSlice({
     },
     extraReducers: (builder) => {
         // FETCH LIST TRANSACTIONS
-        builder.addCase(listTransactions.pending, (state) => {
+        builder.addCase(filterTransactions.pending, (state) => {
             state.list.isError = false;
             state.list.isLoading = true;
         });
-        builder.addCase(listTransactions.fulfilled, (state, action) => {
+        builder.addCase(filterTransactions.fulfilled, (state, action) => {
             state.list.isLoading = false;
             if (state.isTransactionInitial) state.isTransactionInitial = false;
             if (action.payload.response) {
@@ -53,7 +53,7 @@ const transactionSlice = createSlice({
                 state.count.total = action.payload.response.data.count.total;
             }
         });
-        builder.addCase(listTransactions.rejected, (state, action) => {
+        builder.addCase(filterTransactions.rejected, (state, action) => {
             state.list.isLoading = false;
             state.list.isError = true;
             state.list.errorMessage = action.payload;

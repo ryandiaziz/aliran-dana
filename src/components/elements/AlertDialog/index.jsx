@@ -5,12 +5,12 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useDispatch, useSelector } from 'react-redux';
-import { setDialogOpen } from '../../../redux/dialog/dialogSlice';
+import { setDialogOpen } from '../../../redux/menu/menuSlice';
 import { deleteAccount } from '../../../redux/account/accountReducers';
 import { deleteCategory } from '../../../redux/category/categoryReducers';
 
 export default function AlertDialog() {
-    const { isOpen, title, desc, type, data } = useSelector((state) => state.dialog);
+    const { isOpen, title, desc, type, data } = useSelector((state) => state.menu.dialog);
     const dispatch = useDispatch();
 
     const handleClose = () => {
