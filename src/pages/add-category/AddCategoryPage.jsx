@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -8,6 +8,7 @@ import TextInput from "../../components/elements/Inputs/TextInput";
 import SelectInput from "../../components/elements/Inputs/SelectInput";
 import { createCategory, updateCategory } from "../../redux/category/categoryReducers";
 import useAddCategory from "./useAddCategory";
+import PrimaryButton from "../../components/elements/Buttons/PrimaryButton";
 
 const AddCategoryPage = () => {
     const transactionTypesItems = [{ name: "Pendapatan", value: "income" }, { name: "Pengeluaran", value: "expense" }];
@@ -66,7 +67,11 @@ const AddCategoryPage = () => {
                 name={'category_type'}
                 label={'Category Type'}
             />
-            <Button type="submit" variant="contained" sx={{ color: 'white' }} disabled={create.isLoading || update.isLoading}>SIMPAN</Button>
+            <PrimaryButton
+                type='submit'
+                disabled={create.isLoading || update.isLoading}
+                text='SIMPAN'
+            />            
         </Box>
     )
 }

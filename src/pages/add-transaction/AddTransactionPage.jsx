@@ -14,8 +14,8 @@ import { createTransactions } from "../../redux/transaction.js/transactionReduce
 const AddTransactionPage = () => {
     const dispatch = useDispatch();
     const [date, setDate] = useState(dayjs());
-    const { isLoading } = useSelector((state) => state.transaction.create);
     const [categories, setCategories] = useState([])
+    const { isLoading } = useSelector((state) => state.transaction.create);
     const { categoryItems, accountItems, transactionTypesItems } = useTransaction();
     const [formValues, setFormValues] = useState({
         transaction_type: "",

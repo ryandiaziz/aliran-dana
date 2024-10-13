@@ -1,12 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import TextInput from "../../components/elements/Inputs/TextInput";
 import { createAccount, updateAccount } from "../../redux/account/accountReducers";
 import useAddAccount from "./useAddAccount";
+import PrimaryButton from "../../components/elements/Buttons/PrimaryButton";
 
 const AddAccountPage = () => {
     const dispatch = useDispatch();
@@ -64,7 +65,11 @@ const AddAccountPage = () => {
                 value={formValues.account_balance}
                 onChange={handleChange}
             />
-            <Button type="submit" variant="contained" sx={{ color: 'white' }} disabled={create.isLoading || update.isLoading}>SIMPAN</Button>
+            <PrimaryButton
+                type='submit'
+                disabled={create.isLoading || update.isLoading}
+                text='SIMPAN'
+            />            
         </Box>
     )
 }

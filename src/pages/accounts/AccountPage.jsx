@@ -23,7 +23,7 @@ import { showRupiah } from "../../helper/helper";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedAccount } from "../../redux/account/accountSlice";
-import { setDialogOpen } from "../../redux/dialog/dialogSlice";
+import { setDialogOpen } from "../../redux/menu/menuSlice";
 import AmountText from "../../components/elements/Texts/AmoutText";
 import ShowLoading from "../../components/elements/Loading";
 
