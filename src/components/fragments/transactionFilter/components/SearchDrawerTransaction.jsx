@@ -13,15 +13,15 @@ import TextInput from '../../../elements/Inputs/TextInput';
 import PrimaryButton from '../../../elements/Buttons/PrimaryButton';
 import SelectInput from '../../../elements/Inputs/SelectInput';
 import useSearchDrawerTransaction from "../useSearchDrawerTransaction";
-import { getFilterData, setFilterData } from "../../../../helper/helper";
+import { getFilterDataTransaction, setFilterDataTransaction } from "../../../../helper/helper";
 import { filterTransactions } from "../../../../redux/transaction.js/transactionReducers";
 
 const SearchDrawerTransaction = () => {
     const dispatch = useDispatch();
-    const [date, setDate] = useState(dayjs());
+    const [date, setDate] = useState(dayjs(getFilterDataTransaction().transaction_date));
     const {categoryItems, accountItems, transactionTypesItems} = useSearchDrawerTransaction();
     const { isOpen, anchor } = useSelector((state) => state.menu.transactionSearch);
-    const [formValues, setFormValues] = useState(getFilterData());
+    const [formValues, setFormValues] = useState(getFilterDataTransaction());
 
     const handleClick = (open) => (event) => {
         if (
@@ -63,7 +63,7 @@ const SearchDrawerTransaction = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setFilterData(formValues);
+        setFilterDataTransaction(formValues);
         dispatch(setTransactionSearch(false));
         dispatch(filterTransactions());
     }

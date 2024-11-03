@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getFilterData } from '../../helper/helper';
+import { getFilterDataTransaction } from '../../helper/helper';
 import { listAccounts } from '../account/accountReducers';
 
 const URL = 'https://aliran-dana-api.vercel.app/api/transactions';
@@ -10,7 +10,7 @@ export const filterTransactions = createAsyncThunk('transaction/filterTransactio
         const response = await axios({
             method: 'POST',
             url: `${URL}/filter`,
-            data: getFilterData()
+            data: getFilterDataTransaction()
         })
         return response.data;
     } catch (error) {

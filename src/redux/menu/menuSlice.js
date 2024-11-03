@@ -11,6 +11,10 @@ const initialState = {
     transactionSearch: {
         isOpen: false,
         anchor: 'right'
+    },
+    categorySearch: {
+        isOpen: false,
+        anchor: 'right'
     }
 }
 
@@ -28,11 +32,18 @@ const menuSlice = createSlice({
                 if (data) state.dialog.data = data;
             }
         },
-        setTransactionSearch: (state, action) => {            
+        setTransactionSearch: (state, action) => {
             state.transactionSearch.isOpen = action.payload;
+        },
+        setCategorySearch: (state, action) => {
+            state.categorySearch.isOpen = action.payload;
         }
     }
 })
 
 export default menuSlice.reducer;
-export const { setDialogOpen, setTransactionSearch } = menuSlice.actions;
+export const {
+    setDialogOpen,
+    setTransactionSearch,
+    setCategorySearch
+} = menuSlice.actions;
