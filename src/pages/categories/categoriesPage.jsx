@@ -11,7 +11,6 @@ import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 
 import MainLayout from "../../components/layouts/MainLayout";
-import useData from "../../helper/useData";
 import ListItemContainer from "../../components/elements/ListItemContainer";
 import Wrapper from '../../components/elements/Wrapper';
 import PrimaryText from "../../components/elements/Texts/PrimaryText";
@@ -21,6 +20,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setDialogOpen } from "../../redux/menu/menuSlice";
 import { setSelectedCategory } from "../../redux/category/categorySlice";
 import ShowLoading from "../../components/elements/Loading";
+import CategoryFilter from "../../components/fragments/categoryFilter";
+import useCategoriesPage from "./useCategoriesPage";
 
 const Demo = styled('div')(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
@@ -74,7 +75,7 @@ const renderCategoryItems = (items, onClick, dispatch) => {
 const CategoriesPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { categoryItems } = useData();
+    const { categoryItems } = useCategoriesPage();
     const [dense] = React.useState(false);
     const { list } = useSelector((state) => state.category);
 
@@ -86,6 +87,7 @@ const CategoriesPage = () => {
     return (
         <>
             <MainLayout>
+                <CategoryFilter />
                 {
                     list.isLoading ? <ShowLoading />
                         : <Grid item xs={12} md={6}>

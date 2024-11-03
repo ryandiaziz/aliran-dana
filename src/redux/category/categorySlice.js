@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 import { createCategory, deleteCategory, listCategories, updateCategory } from './categoryReducers'
+import { getFilterDataCategory } from '../../helper/helper';
 
 const initialState = {
     isCategoryInitial: true,
     categories: [],
+    categoriesFilter: [],
     selected: {
         id: 0,
         name: '',
@@ -44,6 +46,14 @@ const categorySlice = createSlice({
             state.selected.id = action.payload.value;
             state.selected.name = action.payload.name;
             state.selected.type = action.payload.type;
+        },
+        setCategoriesFilter: (state, action) => {
+            if (action.payload !== 'all') {
+                state.categoriesFilter = state.categories.filter((value) => value.category_type === action.payload);
+            } else {
+                state.categoriesFilter = state.categories;
+            }
+            
         }
     },
     extraReducers: (builder) => {
@@ -55,6 +65,13 @@ const categorySlice = createSlice({
         builder.addCase(listCategories.fulfilled, (state, action) => {
             if (state.isCategoryInitial) state.isCategoryInitial = false;
             state.categories = action.payload.response.data;
+
+            if (getFilterDataCategory().transaction_type !== 'all'){
+                state.categoriesFilter = state.categories.filter((value) => value.category_type === getFilterDataCategory().transaction_type);
+            } else {
+                state.categoriesFilter = state.categories;
+            }
+            
             state.list.isLoading = false;
         })
         builder.addCase(listCategories.rejected, (state, action) => {
@@ -108,4 +125,7 @@ const categorySlice = createSlice({
 })
 
 export default categorySlice.reducer;
-export const { setSelectedCategory } = categorySlice.actions;
+export const {
+    setSelectedCategory,
+    setCategoriesFilter
+} = categorySlice.actions;

@@ -8,13 +8,17 @@ import { filterTransactions } from '../../redux/transaction.js/transactionReduce
 import BasicSpeedDial from '../../components/elements/BasicSpeedDial';
 import TotalDailyTransaction from '../../components/elements/TotalDailyTransaction';
 import TransactionFilter from '../../components/fragments/transactionFilter';
+import { resetFilterDataTransaction } from '../../helper/helper';
 
 const HomePage = () => {
     const dispatch = useDispatch();
     const { isTransactionInitial } = useSelector((state) => state.transaction)
 
     useEffect(() => {
-        if (isTransactionInitial) dispatch(filterTransactions());
+        if (isTransactionInitial) {
+            resetFilterDataTransaction();
+            dispatch(filterTransactions());
+        }
     }, [dispatch])
 
     return (

@@ -12,7 +12,7 @@ const useData = () => {
     const { accounts, isAccountInitial } = useSelector((state) => state.account);
     const accountItems = accounts.map((item) => ({ name: item.account_name, value: item.account_id, balance: item.account_balance }));
 
-    const transactionTypesItems = [{ name: "Pendapatan", value: "income" }, { name: "Pengeluaran", value: "expense" }];
+    const transactionTypesItems = [{ name: "Income", value: "income" }, { name: "Expense", value: "expense" }];
 
     useEffect(() => {
         if (isCategoryInitial) dispatch(listCategories());
@@ -26,4 +26,4 @@ const useData = () => {
     }
 }
 
-export default useData
+export default useData;
