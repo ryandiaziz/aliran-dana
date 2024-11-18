@@ -5,9 +5,11 @@ export const showRupiah = (value) => {
 }
 
 export const showDateTime = (value) => {
-    const date = dayjs(value);
-    return date.format('HH:mm');
-}
+    const date = new Date(value);
+    const hours = String(date.getUTCHours()).padStart(2, '0'); // Mengambil jam UTC
+    const minutes = String(date.getUTCMinutes()).padStart(2, '0'); // Mengambil menit UTC
+    return `${hours}:${minutes}`; // Format HH:mm
+};
 
 export const getCurrentDate = () => {
     return dayjs().format('YYYY-MM-DD');
@@ -73,9 +75,9 @@ export const resetFilterDataCategory = () => {
 export const groupByDate = (transactions) => {
     const formatDate = (dateString) => {
         const date = new Date(dateString);
-        const day = String(date.getDate()).padStart(2, '0'); // Pastikan dua digit
-        const month = String(date.getMonth() + 1).padStart(2, '0'); // Bulan dimulai dari 0
-        const year = date.getFullYear();
+        const day = String(date.getUTCDate()).padStart(2, '0'); // Gunakan getUTCDate untuk tanggal UTC
+        const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Bulan dimulai dari 0
+        const year = date.getUTCFullYear(); // Tahun UTC
         return `${day}-${month}-${year}`;
     };
 
