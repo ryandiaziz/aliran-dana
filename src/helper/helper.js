@@ -6,7 +6,7 @@ export const showRupiah = (value) => {
 
 export const showDateTime = (value) => {
     const date = dayjs(value);
-    return date.format('YYYY-MM-DD HH:mm');
+    return date.format('HH:mm');
 }
 
 export const getCurrentDate = () => {
@@ -14,14 +14,16 @@ export const getCurrentDate = () => {
 }
 
 export const getFilterDataTransaction = () => {
-    if (localStorage.getItem('filter_transaction') === null){
+    if (localStorage.getItem('filter_transaction') === null) {
         const filter = {
             user_id: 2,
-            account_id: "0",
-            category_id: "0",
+            account_id: 0,
+            category_id: 0,
             transaction_note: "",
             transaction_type: "all",
-            transaction_date: getCurrentDate()
+            is_relative_date_enabled: false,
+            transaction_date_from: getCurrentDate(),
+            transaction_date_to: getCurrentDate()
         }
         localStorage.setItem('filter_transaction', JSON.stringify(filter))
     }
@@ -35,17 +37,19 @@ export const setFilterDataTransaction = (data) => {
 export const resetFilterDataTransaction = () => {
     const filter = {
         user_id: 2,
-        account_id: "0",
-        category_id: "0",
+        account_id: 0,
+        category_id: 0,
         transaction_note: "",
         transaction_type: "all",
-        transaction_date: getCurrentDate()
+        is_relative_date_enabled: false,
+        transaction_date_from: getCurrentDate(),
+        transaction_date_to: getCurrentDate()
     }
     localStorage.setItem('filter_transaction', JSON.stringify(filter));
 }
 
 export const getFilterDataCategory = () => {
-    if (localStorage.getItem('filter_category') === null){
+    if (localStorage.getItem('filter_category') === null) {
         const filter = {
             transaction_type: 'income'
         }
@@ -65,3 +69,22 @@ export const resetFilterDataCategory = () => {
     localStorage.setItem('filter_category', JSON.stringify(filter));
     return JSON.parse(localStorage.getItem('filter_category'));
 }
+
+export const groupByDate = (transactions) => {
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const day = String(date.getDate()).padStart(2, '0'); // Pastikan dua digit
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Bulan dimulai dari 0
+        const year = date.getFullYear();
+        return `${day}-${month}-${year}`;
+    };
+
+    return transactions.reduce((groups, transaction) => {
+        const formattedDate = formatDate(transaction.transaction_date); // Format tanggal menjadi DD-MM-YYYY
+        if (!groups[formattedDate]) {
+            groups[formattedDate] = [];
+        }
+        groups[formattedDate].push(transaction);
+        return groups;
+    }, {});
+};

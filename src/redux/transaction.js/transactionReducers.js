@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getFilterDataTransaction } from '../../helper/helper';
 import { listAccounts } from '../account/accountReducers';
+import { getFilterDataTransaction } from '../../helper/helper';
 
 const URL = 'https://aliran-dana-api.vercel.app/api/transactions';
 
