@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import { useDispatch, useSelector } from 'react-redux';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
-import { IconButton } from '@mui/material';
+import { IconButton, Switch } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
@@ -13,13 +13,12 @@ import TextInput from '../../../elements/Inputs/TextInput';
 import PrimaryButton from '../../../elements/Buttons/PrimaryButton';
 import SelectInput from '../../../elements/Inputs/SelectInput';
 import useSearchDrawerTransaction from "../useSearchDrawerTransaction";
-import { getFilterDataTransaction, setFilterDataTransaction } from "../../../../helper/helper";
+import { getFilterDataTransaction, resetFilterDataTransaction, setFilterDataTransaction } from "../../../../helper/helper";
 import { filterTransactions } from "../../../../redux/transaction.js/transactionReducers";
 
 const SearchDrawerTransaction = () => {
     const dispatch = useDispatch();
-    const [date, setDate] = useState(dayjs(getFilterDataTransaction().transaction_date));
-    const {categoryItems, accountItems, transactionTypesItems} = useSearchDrawerTransaction();
+    const { categoryItems, accountItems, transactionTypesItems } = useSearchDrawerTransaction();
     const { isOpen, anchor } = useSelector((state) => state.menu.transactionSearch);
     const [formValues, setFormValues] = useState(getFilterDataTransaction());
 
@@ -33,39 +32,47 @@ const SearchDrawerTransaction = () => {
     }
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value, checked } = e.target;
+
         setFormValues((prevValues) => ({
             ...prevValues,
-            [name]: value,
+            [name]: name === 'is_relative_date_enabled' ? checked : value,
         }));
     };
 
-    const handleDateChange = (date) => {
+    const handleDateFromChange = (date) => {
         let dateFormat = date.format('YYYY-MM-DD');
-        setDate(date);
+        
         setFormValues((prevValues) => ({
             ...prevValues,
-            transaction_date: dateFormat,
+            transaction_date_from: dateFormat,
+        }));
+        if (!formValues.is_relative_date_enabled) {
+            setFormValues((prevValues) => ({
+                ...prevValues,
+                transaction_date_to: dateFormat,
+            }));
+        }
+    };
+
+    const handleDateToChange = (date) => {
+        let dateFormat = date.format('YYYY-MM-DD');
+        setFormValues((prevValues) => ({
+            ...prevValues,
+            transaction_date_to: dateFormat,
         }));
     };
 
     const handleResetFilter = () => {
-        setFormValues({
-            user_id: 2,
-            account_id: '0',
-            category_id: '0',
-            transaction_note: '',
-            transaction_type: 'all',
-            transaction_date: dayjs().format('YYYY-MM-DD')
-        });
-        setDate(dayjs());
+        resetFilterDataTransaction();
+        setFormValues(getFilterDataTransaction());
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setFilterDataTransaction(formValues);
         dispatch(setTransactionSearch(false));
-        dispatch(filterTransactions());
+        dispatch(filterTransactions(getFilterDataTransaction()));
     }
 
     return (
@@ -108,11 +115,26 @@ const SearchDrawerTransaction = () => {
                         values={accountItems}
                         onChange={handleChange}
                     />
+                    <Switch
+                        checked={formValues.is_relative_date_enabled}
+                        name='is_relative_date_enabled'
+                        onChange={handleChange}
+                        inputProps={{ 'aria-label': 'controlled' }}
+                    />
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker
-                            label="Date"
-                            value={date}
-                            onChange={handleDateChange}
+                            label="From Date"
+                            value={dayjs(formValues.transaction_date_from)}
+                            onChange={handleDateFromChange}
+                        />
+                    </LocalizationProvider>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker
+                            label="To Date"
+                            value={formValues.is_relative_date_enabled ? dayjs(formValues.transaction_date_to) : null}
+                            onChange={handleDateToChange}
+                            minDate={formValues.transaction_date_from ? dayjs(formValues.transaction_date_from) : null}
+                            disabled={!formValues.is_relative_date_enabled}
                         />
                     </LocalizationProvider>
                     <Box sx={{ display: 'flex', gap: 1 }}>

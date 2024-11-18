@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 import { filterTransactions, createTransactions, transferTransactions } from './transactionReducers'
+import { groupByDate } from '../../helper/helper';
 
 const initialState = {
     isTransactionInitial: true,
@@ -47,7 +48,9 @@ const transactionSlice = createSlice({
             state.list.isLoading = false;
             if (state.isTransactionInitial) state.isTransactionInitial = false;
             if (action.payload.response) {
-                state.list.transactions = action.payload.response.data.transactions;
+                console.log(action.payload.response.data.transactions);
+                
+                state.list.transactions = groupByDate(action.payload.response.data.transactions);
                 state.count.income = action.payload.response.data.count.income;
                 state.count.expense = action.payload.response.data.count.expense;
                 state.count.total = action.payload.response.data.count.total;
