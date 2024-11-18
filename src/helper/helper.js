@@ -73,16 +73,16 @@ export const resetFilterDataCategory = () => {
 }
 
 export const groupByDate = (transactions) => {
-    const formatDate = (dateString) => {
+    const formatDateUTC = (dateString) => {
         const date = new Date(dateString);
-        const day = String(date.getUTCDate()).padStart(2, '0'); // Gunakan getUTCDate untuk tanggal UTC
-        const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Bulan dimulai dari 0
-        const year = date.getUTCFullYear(); // Tahun UTC
+        const day = String(date.getUTCDate()).padStart(2, '0'); // Hari dalam UTC
+        const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Bulan dalam UTC
+        const year = date.getUTCFullYear(); // Tahun dalam UTC
         return `${day}-${month}-${year}`;
     };
 
     return transactions.reduce((groups, transaction) => {
-        const formattedDate = formatDate(transaction.transaction_date); // Format tanggal menjadi DD-MM-YYYY
+        const formattedDate = formatDateUTC(transaction.transaction_date); // Format tanggal menjadi DD-MM-YYYY UTC
         if (!groups[formattedDate]) {
             groups[formattedDate] = [];
         }
