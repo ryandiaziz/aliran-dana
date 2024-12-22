@@ -22,9 +22,9 @@ const HomePage = () => {
     }, [dispatch])
 
     return (
-        <MainLayout>
-            <TransactionFilter/>
-            <TotalDailyTransaction/>
+        <MainLayout>            
+            <TransactionFilter />
+            <TotalDailyTransaction />
             <ListTransactions />
             <BasicSpeedDial />
         </MainLayout>

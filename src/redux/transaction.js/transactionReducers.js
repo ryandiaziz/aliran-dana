@@ -2,8 +2,10 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { listAccounts } from '../account/accountReducers';
 import { getFilterDataTransaction } from '../../helper/helper';
+import { config } from '../../helper/config';
 
-const URL = 'https://aliran-dana-api.vercel.app/api/transactions';
+const { apiUrl } = config();
+const URL = `${apiUrl}/api/transactions`;
 
 export const filterTransactions = createAsyncThunk('transaction/filterTransactions', async (data, thunkAPI) => {
     try {

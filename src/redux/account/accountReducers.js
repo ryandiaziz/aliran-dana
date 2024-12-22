@@ -1,8 +1,10 @@
-import {createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import {createAsyncThunk } from '@reduxjs/toolkit';
 import { setDialogOpen } from '../menu/menuSlice';
+import { config } from '../../helper/config';
 
-const URL = 'https://aliran-dana-api.vercel.app/api/accounts';
+const { apiUrl } = config();
+const URL = `${apiUrl}/api/accounts`;
 
 export const listAccounts = createAsyncThunk('account/listAccounts', async (data, thunkAPI) => {
     try {

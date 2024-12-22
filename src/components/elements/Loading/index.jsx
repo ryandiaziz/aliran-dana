@@ -11,7 +11,9 @@ const ShowLoading = () => {
     })
 
     return (
-        <LoadingContainer><CircularProgress /></LoadingContainer>
+        <LoadingContainer>
+            <CircularProgress />
+        </LoadingContainer>
     )
 }
 

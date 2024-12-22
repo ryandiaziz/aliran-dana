@@ -10,7 +10,11 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
+import Tooltip from '@mui/material/Tooltip';
 import Toolbar from '@mui/material/Toolbar';
+import Avatar from '@mui/material/Avatar';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import PaidIcon from '@mui/icons-material/Paid';
@@ -31,14 +35,25 @@ const navItems = [
     }
 ];
 
+const settings = ['Profile', 'Logout'];
+
 
 const AppbarCus = (props) => {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
+    const [anchorElUser, setAnchorElUser] = React.useState(null);
     const navigate = useNavigate();
 
     const handleDrawerToggle = () => {
         setMobileOpen((prevState) => !prevState);
+    };
+
+    const handleOpenUserMenu = (event) => {
+        setAnchorElUser(event.currentTarget);
+    };
+
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
     };
 
     const goToPage = (path) => {
@@ -67,7 +82,13 @@ const AppbarCus = (props) => {
 
     return (
         <>
-            <AppBar component="nav" sx={{ boxShadow: 'rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px' }}>
+            <AppBar
+                component="nav"
+                sx={{
+                    boxShadow: 'rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px',
+                    background: 'white'
+                }}
+            >
                 <Toolbar>
                     <IconButton
                         color="inherit"
@@ -78,13 +99,52 @@ const AppbarCus = (props) => {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <PaidIcon sx={{ display: { xs: 'none', md: 'block' }, mr: 1, color: 'white' }} />
-                    <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                    <PaidIcon
+                        sx={{
+                            display: {
+                                xs: 'none',
+                                md: 'block'
+                            },
+                            mr: 1,
+                            color: '#50B498'
+                        }}
+                    />
+                    <Box sx={{ display: { xs: 'block', sm: 'none' }, flexGrow: 1 }} />
+                    <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}>
                         {navItems.map((item) => (
-                            <Button key={item.name} sx={{ color: '#fff' }} onClick={() => goToPage(item.path)}>
+                            <Button key={item.name} sx={{ color: '#151515' }} onClick={() => goToPage(item.path)}>
                                 {item.name}
                             </Button>
                         ))}
+                    </Box>
+                    <Box sx={{ flexGrow: 0 }}>
+                        <Tooltip title="Open settings">
+                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                <Avatar alt="AA Drawing" src="/static/images/avatar/2.jpg" />
+                            </IconButton>
+                        </Tooltip>
+                        <Menu
+                            sx={{ mt: '45px' }}
+                            id="menu-appbar"
+                            anchorEl={anchorElUser}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            open={Boolean(anchorElUser)}
+                            onClose={handleCloseUserMenu}
+                        >
+                            {settings.map((setting) => (
+                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                                    <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
+                                </MenuItem>
+                            ))}
+                        </Menu>
                     </Box>
                 </Toolbar>
             </AppBar>
