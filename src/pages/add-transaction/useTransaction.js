@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import useData from "../../helper/useData";
+import useData from "../../utils/useData";
 
 const useTransaction = () => {
     const navigate = useNavigate();
@@ -35,4 +35,4 @@ const useTransaction = () => {
     }
 }
 
-export default useTransaction
+export default useTransaction;

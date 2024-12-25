@@ -1,7 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
-import { createCategory, deleteCategory, listCategories, updateCategory } from './categoryReducers'
-import { getFilterDataCategory } from '../../helper/helper';
+import { getFilterDataCategory } from '../../utils/helper';
+import {
+    createCategory,
+    deleteCategory,
+    listCategories,
+    updateCategory
+} from './categoryReducers';
 
 const initialState = {
     isCategoryInitial: true,
@@ -53,7 +58,6 @@ const categorySlice = createSlice({
             } else {
                 state.categoriesFilter = state.categories;
             }
-            
         }
     },
     extraReducers: (builder) => {
@@ -61,24 +65,23 @@ const categorySlice = createSlice({
         builder.addCase(listCategories.pending, (state) => {
             state.list.isLoading = true;
             state.list.isError = false;
-        })
+        });
         builder.addCase(listCategories.fulfilled, (state, action) => {
             if (state.isCategoryInitial) state.isCategoryInitial = false;
             state.categories = action.payload.response.data;
 
-            if (getFilterDataCategory().transaction_type !== 'all'){
+            if (getFilterDataCategory().transaction_type !== 'all') {
                 state.categoriesFilter = state.categories.filter((value) => value.category_type === getFilterDataCategory().transaction_type);
             } else {
                 state.categoriesFilter = state.categories;
             }
-            
             state.list.isLoading = false;
-        })
+        });
         builder.addCase(listCategories.rejected, (state, action) => {
             state.list.isLoading = false;
             state.list.isError = true;
             state.list.errorMessage = action.payload;
-        })
+        });
         // CREATE CATEGORY
         builder.addCase(createCategory.pending, (state) => {
             state.create.isLoading = true;
@@ -92,35 +95,35 @@ const categorySlice = createSlice({
             state.create.isLoading = false;
             state.create.isError = true;
             state.create.errorMessage = action.payload;
-        })
+        });
         // UPDATE CATEGORY
         builder.addCase(updateCategory.pending, (state) => {
             state.update.isLoading = true;
             state.update.isError = false;
-        })
+        });
         builder.addCase(updateCategory.fulfilled, (state, action) => {
             state.update.isLoading = false;
             state.update.result = action.payload;
-        })
+        });
         builder.addCase(updateCategory.rejected, (state, action) => {
             state.update.isLoading = false;
             state.update.isError = true;
             state.update.errorMessage = action.payload;
-        })
+        });
         // DELETE CATEGORY
         builder.addCase(deleteCategory.pending, (state) => {
             state.delete.isLoading = true;
             state.delete.isError = false;
-        })
+        });
         builder.addCase(deleteCategory.fulfilled, (state, action) => {
             state.delete.isLoading = false;
             state.delete.result = action.payload;
-        })
+        });
         builder.addCase(deleteCategory.rejected, (state, action) => {
             state.delete.isLoading = false;
             state.delete.isError = true;
             state.delete.errorMessage = action.payload;
-        })
+        });
     }
 })
 

@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { listAccounts } from '../account/accountReducers';
-import { getFilterDataTransaction } from '../../helper/helper';
-import { config } from '../../helper/config';
+import { getFilterDataTransaction } from '../../utils/helper';
+import { config } from '../../utils/config';
 
 const { apiUrl } = config();
 const URL = `${apiUrl}/api/transactions`;

@@ -12,20 +12,64 @@ import AddAccountPage from "../pages/add-account/AddAccountPage";
 import CategoriesPage from "../pages/categories/categoriesPage";
 import AddCategoryPage from "../pages/add-category/AddCategoryPage";
 import TransferPage from "../pages/transfer/TransferPage";
+import ProtectedRoute from "../components/elements/ProtectedRoute";
+import LoginPage from "../pages/login/LoginPage";
+import AuthLayout from "../components/layouts/AuthLayout";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
-        <Route path="/" element={<RootLayout />}>
-            <Route path="" element={<HomePage />} />
-            <Route path="add-transaction" element={<AddTransactionPage />} />
-            <Route path="transfer" element={<TransferPage/>} />
-            <Route path="accounts" element={<AccountPage />}/>
-            <Route path="accounts/add-account" element={<AddAccountPage />} />
-            <Route path="accounts/:account" element={<AddAccountPage />} />
-            <Route path="categories" element={<CategoriesPage/>}/>
-            <Route path="categories/add-category" element={<AddCategoryPage/>}/>
-            <Route path="/categories/:category" element={<AddCategoryPage/>} />
-        </Route>
+        <>
+            <Route element={<AuthLayout />}>
+                <Route path="login" element={<LoginPage />} />
+            </Route>
+            <Route element={<ProtectedRoute />}>
+                <Route path="/" element={<RootLayout />}>
+                    <Route index element={
+                        <ProtectedRoute isPage={true}>
+                            <HomePage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="add-transaction" element={
+                        <ProtectedRoute isPage={true}>
+                            <AddTransactionPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="transfer" element={
+                        <ProtectedRoute isPage={true}>
+                            <TransferPage />
+                        </ProtectedRoute>} />
+                    <Route path="accounts" element={
+                        <ProtectedRoute isPage={true}>
+                            <AccountPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="accounts/add-account" element={
+                        <ProtectedRoute isPage={true}>
+                            <AddAccountPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="accounts/:account" element={
+                        <ProtectedRoute isPage={true}>
+                            <AddAccountPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="categories" element={
+                        <ProtectedRoute isPage={true}>
+                            <CategoriesPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="categories/add-category" element={
+                        <ProtectedRoute isPage={true}>
+                            <AddCategoryPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="categories/:category" element={
+                        <ProtectedRoute isPage={true}>
+                            <AddCategoryPage />
+                        </ProtectedRoute>} />
+                </Route>
+            </Route>
+        </>
     )
 )
 

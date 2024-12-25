@@ -9,7 +9,7 @@ import { setCategorySearch } from '../../../../redux/menu/menuSlice';
 import PrimaryButton from '../../../elements/Buttons/PrimaryButton';
 import SelectInput from '../../../elements/Inputs/SelectInput';
 import useSearchDrawerCategory from "../useSearchDrawerCategory";
-import { getFilterDataCategory, resetFilterDataCategory, setFilterDataCategory } from "../../../../helper/helper";
+import { getFilterDataCategory, resetFilterDataCategory, setFilterDataCategory } from "../../../../utils/helper";
 import { setCategoriesFilter } from "../../../../redux/category/categorySlice";
 
 const SearchDrawerCategory = () => {

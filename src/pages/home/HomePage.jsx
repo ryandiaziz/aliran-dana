@@ -8,7 +8,7 @@ import { filterTransactions } from '../../redux/transaction.js/transactionReduce
 import BasicSpeedDial from '../../components/elements/BasicSpeedDial';
 import TotalDailyTransaction from '../../components/elements/TotalDailyTransaction';
 import TransactionFilter from '../../components/fragments/transactionFilter';
-import { resetFilterDataTransaction } from '../../helper/helper';
+import { resetFilterDataTransaction } from '../../utils/helper';
 
 const HomePage = () => {
     const dispatch = useDispatch();

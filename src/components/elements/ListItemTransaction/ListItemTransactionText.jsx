@@ -4,7 +4,7 @@ import PrimaryText from '../Texts/PrimaryText';
 import Wrapper from '../Wrapper';
 import SecondaryText from '../Texts/SecondaryText';
 import AmountText from '../Texts/AmoutText';
-import { showDateTime, showRupiah } from '../../../helper/helper';
+import { showDateTime, showRupiah } from '../../../utils/helper';
 
 const ListItemTransactionText = ({
     transactionType,

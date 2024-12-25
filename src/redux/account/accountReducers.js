@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {createAsyncThunk } from '@reduxjs/toolkit';
 import { setDialogOpen } from '../menu/menuSlice';
-import { config } from '../../helper/config';
+import { config } from '../../utils/config';
 
 const { apiUrl } = config();
 const URL = `${apiUrl}/api/accounts`;

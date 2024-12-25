@@ -18,25 +18,18 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import PaidIcon from '@mui/icons-material/Paid';
+
 import { useNavigate } from 'react-router-dom';
+import { logout } from '../../../utils/auth';
+
 const drawerWidth = 240;
 const navItems = [
-    {
-        name: 'Home',
-        path: '/'
-    },
-    {
-        name: 'Accounts',
-        path: '/accounts'
-    },
-    {
-        name: 'Categories',
-        path: '/categories'
-    }
+    { name: 'Home', path: '/' },
+    { name: 'Accounts', path: '/accounts' },
+    { name: 'Categories', path: '/categories' }
 ];
 
 const settings = ['Profile', 'Logout'];
-
 
 const AppbarCus = (props) => {
     const { window } = props;
@@ -52,9 +45,22 @@ const AppbarCus = (props) => {
         setAnchorElUser(event.currentTarget);
     };
 
-    const handleCloseUserMenu = () => {
+    const handleCloseUserMenu = (name) => {
         setAnchorElUser(null);
+
+        switch (name) {
+            case 'Logout':
+                handleLogout();
+                break;
+            default:
+                break;
+        }
     };
+
+    const handleLogout = () => {
+        logout();
+        navigate('login', { replace: true });
+    }
 
     const goToPage = (path) => {
         navigate(path);
@@ -140,7 +146,7 @@ const AppbarCus = (props) => {
                             onClose={handleCloseUserMenu}
                         >
                             {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                                <MenuItem key={setting} onClick={() => handleCloseUserMenu(setting)}>
                                     <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
                                 </MenuItem>
                             ))}
