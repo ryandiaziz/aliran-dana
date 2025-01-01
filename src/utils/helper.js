@@ -18,7 +18,6 @@ export const getCurrentDate = () => {
 export const getFilterDataTransaction = () => {
     if (localStorage.getItem('filter_transaction') === null) {
         const filter = {
-            user_id: 2,
             account_id: 0,
             category_id: 0,
             transaction_note: "",
@@ -38,7 +37,6 @@ export const setFilterDataTransaction = (data) => {
 
 export const resetFilterDataTransaction = () => {
     const filter = {
-        user_id: 2,
         account_id: 0,
         category_id: 0,
         transaction_note: "",

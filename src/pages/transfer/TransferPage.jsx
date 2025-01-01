@@ -23,7 +23,6 @@ const TransferPage = () => {
     const [isInitialRender, setIsInitialRender] = useState(true);
     const { isLoading, isError, errorMessage } = useSelector((state) => state.transaction.transfer);
     const [formValues, setFormValues] = useState({
-        user_id: 2,
         from_account: "",
         to_account: "",
         transaction_amount: 0,

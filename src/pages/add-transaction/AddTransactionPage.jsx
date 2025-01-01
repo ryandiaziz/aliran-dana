@@ -22,7 +22,6 @@ const AddTransactionPage = () => {
         transaction_amount: "",
         transaction_note: "",
         transaction_date: dayjs().format('YYYY-MM-DD HH:mm:ss.SSS'),
-        user_id: 2,
         category_id: "",
         account_id: ""
     });

@@ -43,7 +43,6 @@ export const transferTransactions = createAsyncThunk('transaction/transferTransa
             transaction_amount: data.transaction_amount + data.admin_fee,
             transaction_type: "expense",
             transaction_date: data.transaction_date,
-            user_id: data.user_id,
             category_id: 1,
             account_id: data.from_account
         }
@@ -53,7 +52,6 @@ export const transferTransactions = createAsyncThunk('transaction/transferTransa
             transaction_amount: data.transaction_amount + data.admin_fee,
             transaction_type: "income",
             transaction_date: data.transaction_date,
-            user_id: data.user_id,
             category_id: 2,
             account_id: data.to_account
         }
