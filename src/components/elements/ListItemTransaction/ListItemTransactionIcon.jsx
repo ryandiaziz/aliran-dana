@@ -1,14 +1,13 @@
-/* eslint-disable no-unused-vars */
 import { styled } from '@mui/material'
+import PropTypes from "prop-types";
 
-// eslint-disable-next-line react/prop-types
 const ListItemTransactionIcon = ({children, transactionType}) => {
     const Container = styled('div')({
         minWidth : 56
     });
 
     const IconWrapper = styled('div')(({theme})=>({
-        background : transactionType === 'income' ? theme.palette.primary.main : theme.palette.expense.main,
+        background : transactionType === 'income' ? theme.palette.income.main : theme.palette.expense.main,
         borderRadius : '50%',
         height : 40,
         width : 40,
@@ -27,4 +26,9 @@ const ListItemTransactionIcon = ({children, transactionType}) => {
     )
 }
 
-export default ListItemTransactionIcon
+ListItemTransactionIcon.propTypes = {
+    children: PropTypes.node,
+    transactionType: PropTypes.string
+}
+
+export default ListItemTransactionIcon;

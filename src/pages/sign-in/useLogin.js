@@ -21,10 +21,10 @@ const useLogin = () => {
                 enqueueSnackbar(errorMessage, { variant: "error" });
             } else {
                 enqueueSnackbar("Berhasil masuk", { variant: "success" });
-                navigate("/");
+                navigate("/", { replace: true });
             }
         }
-    }, [isLoading]);
+    }, [isLoading]);    
 }
 
 export default useLogin;
