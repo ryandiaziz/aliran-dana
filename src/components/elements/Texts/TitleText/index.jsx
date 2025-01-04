@@ -1,12 +1,23 @@
-/* eslint-disable react/prop-types */
-import {Typography } from '@mui/material'
+import PropTypes from 'prop-types';
+import { Typography } from '@mui/material';
 
 const TitleText = ({ text }) => {
     return (
-        <Typography fontSize={'1.3em'} color={'#686D76'} fontWeight={600}>
+        <Typography sx={{
+            fontSize: {
+                xs: '.9rem',
+                md: '1rem'
+            },
+            fontWeight: 600,
+            color: 'textSecondary.main'
+        }} >
             {text}
         </Typography>
     )
 }
 
-export default TitleText
+TitleText.propTypes = {
+    text: PropTypes.string.isRequired
+};
+
+export default TitleText;

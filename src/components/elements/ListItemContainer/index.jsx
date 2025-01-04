@@ -13,6 +13,7 @@ const ListItemContainer = ({children, onClick}) => {
         textAlign: 'left',
         padding: '8px 16px',
         cursor: 'pointer',
+        borderRadius: '4px',
         '&:hover': {
             backgroundColor: '#F5F7F8'
         }

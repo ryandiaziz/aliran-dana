@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material'
+import { createTheme } from '@mui/material';
 
 const theme = createTheme({
     palette: {
@@ -8,19 +8,19 @@ const theme = createTheme({
         secondary: {
             main: '#DF826C',
         },
-        expense : {
-            main : '#DF826C'
+        expense: {
+            main: '#DF826C'
         },
-        income : {
+        income: {
             main: '#50B498'
         },
-        textPrimary : {
-            main : '#151515'
+        textPrimary: {
+            main: '#151515'
         },
-        textSecondary : {
-            main : '#686D76'
+        textSecondary: {
+            main: '#686D76'
         }
     },
-})
+});
 
-export default theme
+export default theme;

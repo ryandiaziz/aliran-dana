@@ -33,7 +33,7 @@ const TotalDailyTransaction = () => {
                     sx={{ justifyContent: 'space-between', alignItems: 'center', padding: 2 }}
                 >
                     <PrimaryText text={'Total'} />
-                    <PrimaryText text={showRupiah(count.total)} />
+                    <AmountText text={showRupiah(count.total)} />
                 </Stack>
             </Box>
         </Card>

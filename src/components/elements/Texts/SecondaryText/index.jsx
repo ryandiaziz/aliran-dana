@@ -1,20 +1,23 @@
-/* eslint-disable react/prop-types */
-import { styled, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import { Typography } from '@mui/material';
 
 
 const SecondaryText = ({ text }) => {
-    const Text = styled('div')(({ theme }) => ({
-        color: theme.palette.textSecondary.main,
-        width: '100%'
-    }));
-
     return (
-        <Text>
-            <Typography sx={{ fontSize : 14 }}>
-                {text}
-            </Typography>
-        </Text>
+        <Typography sx={{
+            fontSize: {
+                xs: '.8rem',
+                md: '.9rem'
+            },
+            color: 'textSecondary.main'
+        }}>
+            {text}
+        </Typography>
     )
 }
 
-export default SecondaryText
+SecondaryText.propTypes = {
+    text: PropTypes.string.isRequired
+}
+
+export default SecondaryText;

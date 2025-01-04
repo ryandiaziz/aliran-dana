@@ -36,10 +36,6 @@ const ListItemTransactionText = ({
         textAlign: 'end'
     }
 
-    const handleAmount = () => {
-        return `${transactionType === 'expense' ? '-' : ''} ${showRupiah(transactionAmount)}`
-    }
-
     return (
         <ListItemTransactionText>
             <Wrapper style={wrapperStyle1}>
@@ -48,7 +44,7 @@ const ListItemTransactionText = ({
             </Wrapper>
             <Wrapper style={wrapperStyle2}>
                 <AmountText
-                    text={handleAmount()}
+                    text={showRupiah(transactionAmount)}
                     category={transactionType}
                 />
                 <SecondaryText text={showDateTime(transactionDate)} />
@@ -57,4 +53,4 @@ const ListItemTransactionText = ({
     )
 }
 
-export default ListItemTransactionText
+export default ListItemTransactionText;

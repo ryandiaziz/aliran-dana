@@ -1,19 +1,20 @@
-/* eslint-disable react/prop-types */
-import { styled, Typography } from '@mui/material'
+import PropTypes from 'prop-types';
+import { Typography } from '@mui/material'
 
-const PrimaryText = ({ text, color }) => {
-    const Text = styled('div')(({ theme }) => ({
-        color: color || theme.palette.textPrimary.main,
-        fontSize: 18
-    }));
-
+const PrimaryText = ({ text, color = "primary.main" }) => {
     return (
-        <Text>
-            <Typography>
-                {text}
-            </Typography>
-        </Text>
+        <Typography sx={{
+            fontSize: { xs: '.9rem', md: '1rem' },
+            color: color
+        }}>
+            {text}
+        </Typography>
     )
 }
 
-export default PrimaryText
+PrimaryText.propTypes = {
+    text: PropTypes.string.isRequired,
+    color: PropTypes.string
+};
+
+export default PrimaryText;

@@ -17,13 +17,25 @@ export default function ListTransactions() {
                 <Box key={date} sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: 2,
+                    // gap: 2,
                     bgcolor: 'white',
                     borderRadius: 2,
                     boxShadow: 2,
+                    p: { xs: 0, sm: 3 },
                     mt: 2
                 }}>
-                    <TitleText text={date} />
+                    <Box sx={{
+                        paddingLeft: {
+                            xs: 2,
+                            sm: 0
+                        },
+                        paddingTop: {
+                            xs: 2,
+                            sm: 0
+                        }
+                    }}>
+                        <TitleText text={date} />
+                    </Box>
                     <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
                         {
                             transactions[date].map((transaction) => (
