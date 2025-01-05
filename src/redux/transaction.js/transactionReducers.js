@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { listAccounts } from '../account/accountReducers';
 import { getFilterDataTransaction } from '../../utils/helper';
 import { config } from '../../utils/config';
+import TransactionType from '../../enums/TransactionType';
 
 const { apiUrl } = config();
 const URL = `${apiUrl}/api/transactions`;
@@ -39,18 +40,18 @@ export const createTransactions = createAsyncThunk('transaction/createTransactio
 export const transferTransactions = createAsyncThunk('transaction/transferTransaction', async (data, thunkAPI) => {
     try {
         const sendBalanceBody = {
-            transaction_note: `Mengirim saldo`,
+            transaction_note: `Send Balance`,
             transaction_amount: data.transaction_amount + data.admin_fee,
-            transaction_type: "expense",
+            transaction_type: TransactionType.SendBalance,
             transaction_date: data.transaction_date,
             category_id: 1,
             account_id: data.from_account
         }
 
         const receiveBalanceBody = {
-            transaction_note: `Menerima saldo`,
+            transaction_note: `Receive Balance`,
             transaction_amount: data.transaction_amount + data.admin_fee,
-            transaction_type: "income",
+            transaction_type: TransactionType.ReceiveBalance,
             transaction_date: data.transaction_date,
             category_id: 2,
             account_id: data.to_account

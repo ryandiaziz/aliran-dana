@@ -17,7 +17,8 @@ const SecondaryText = ({ text }) => {
 }
 
 SecondaryText.propTypes = {
-    text: PropTypes.string.isRequired
+    text: PropTypes.string.isRequired,
+    isNumber: PropTypes.bool
 }
 
 export default SecondaryText;

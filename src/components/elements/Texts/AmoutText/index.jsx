@@ -1,12 +1,13 @@
-/* eslint-disable react/prop-types */
-import { Typography } from "@mui/material"
+import PropTypes from "prop-types";
+import { Typography } from "@mui/material";
+import { TransactionType } from "../../../../enums/Index.js";
 
-function AmountText({ text, category = 'total' }) {
+function AmountText({ text, category = TransactionType.Total }) {
     return (
         <Typography sx={{
-            color: category === 'income'
+            color: category === TransactionType.Income
                 ? 'income.main'
-                : category === 'expense'
+                : category === TransactionType.Expense
                     ? 'expense.main'
                     : 'textPrimary.main',
             fontSize: {
@@ -20,4 +21,9 @@ function AmountText({ text, category = 'total' }) {
     )
 }
 
-export default AmountText
+AmountText.propTypes = {
+    text: PropTypes.string.isRequired,
+    category: PropTypes.string
+}
+
+export default AmountText;

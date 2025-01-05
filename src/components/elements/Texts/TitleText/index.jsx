@@ -9,7 +9,8 @@ const TitleText = ({ text }) => {
                 md: '1rem'
             },
             fontWeight: 600,
-            color: 'textSecondary.main'
+            color: 'primary.main',
+            letterSpacing: '.1rem'
         }} >
             {text}
         </Typography>
