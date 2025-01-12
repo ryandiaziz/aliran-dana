@@ -13,16 +13,16 @@ import CategoriesPage from "../pages/categories/categoriesPage";
 import AddCategoryPage from "../pages/add-category/AddCategoryPage";
 import TransferPage from "../pages/transfer/TransferPage";
 import ProtectedRoute from "../components/elements/ProtectedRoute";
-// import LoginPage from "../pages/sign-in/LoginPage";
-// import SignInPage from "../pages/sign-in/SignInPage";
 import AuthLayout from "../components/layouts/AuthLayout";
 import SignInPage from "../pages/sign-in/SignInPage";
+import RegisterPage from "../pages/register/registerPage";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <>
             <Route element={<AuthLayout />}>
                 <Route path="login" element={<SignInPage />} />
+                <Route path="register" element={<RegisterPage />} />
             </Route>
             <Route element={<ProtectedRoute />}>
                 <Route path="/" element={<RootLayout />}>
