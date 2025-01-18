@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import useLogin from "./useLogin";
-import { authLogin } from "../../redux/auth/loginReducers";
+import { authLogin } from "../../redux/auth/authReducers";
 
 const SignInPage = () => {
     useLogin();
@@ -67,7 +67,6 @@ const SignInPage = () => {
                     flexDirection: 'column',
                     gap: 2,
                     bgcolor: 'white',
-                    height: 300,
                     width: 350,
                     borderRadius: 2,
                     p: 3,
@@ -115,7 +114,7 @@ const SignInPage = () => {
                 <FormHelperText>
                     <Box sx={{ display: 'flex', gap: 1 }}>
                         <Typography sx={{ fontWeight: 'light' }}>No account?</Typography>
-                        <Link to={'#'}>
+                        <Link to={'/register'}>
                             <Typography sx={{ cursor: 'pointer' }}> Create one!</Typography>
                         </Link>
                     </Box>

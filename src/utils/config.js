@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 export const config = () => {
     const environment = import.meta.env.VITE_ENVIRONMENT || 'DEVELOPMENT';
 

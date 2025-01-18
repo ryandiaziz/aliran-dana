@@ -3,7 +3,7 @@ import transactionReducers from "./transaction.js/transactionSlice";
 import categoryReducers from "./category/categorySlice";
 import accountReducers from "./account/accountSlice";
 import menuReducers from "./menu/menuSlice";
-import authReducers from "./auth/loginSlice";
+import authReducers from "./auth/authSlice";
 
 const store = configureStore({
     reducer: {

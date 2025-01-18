@@ -1,34 +1,46 @@
-import { useState } from "react";
-import { Box, FormHelperText } from "@mui/material"
+/* eslint-disable react-hooks/exhaustive-deps */
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
+import { Box, FormHelperText } from "@mui/material"
+import { useDispatch } from "react-redux";
 
-import useLogin from "./useLogin";
-import { authLogin } from "../../redux/auth/loginReducers";
+import useRegister from "./useRegister";
+import { authRegister } from "../../redux/auth/authReducers";
 
 const RegisterPage = () => {
-    useLogin();
     const dispatch = useDispatch();
+    const { isRegisterLoading, isLoginLoading } = useRegister();
+    const [usernameError, setUsernameError] = useState(false);
+    const [usernameErrorMessage, setUsernameErrorMessage] = useState('');
     const [emailError, setEmailError] = useState(false);
     const [emailErrorMessage, setEmailErrorMessage] = useState('');
     const [passwordError, setPasswordError] = useState(false);
     const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
-    const { isLoading } = useSelector((state => state.auth.login));
     const [form, setForm] = useState({
+        username: '',
         email: '',
         password: '',
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (validateInputs()) dispatch(authLogin(form));
+        if (validateInputs()) dispatch(authRegister(form));
     }
 
     const validateInputs = () => {
         let isValid = true;
+
+        if (!form.username || form.username.length < 4) {
+            setUsernameError(true);
+            setUsernameErrorMessage('Username must be at least 4 characters long.');
+            isValid = false;
+        } else {
+            setUsernameError(false);
+            setUsernameErrorMessage('');
+        }
 
         if (!form.email || !/\S+@\S+\.\S+/.test(form.email)) {
             setEmailError(true);
@@ -67,7 +79,6 @@ const RegisterPage = () => {
                     flexDirection: 'column',
                     gap: 2,
                     bgcolor: 'white',
-                    height: 300,
                     width: 350,
                     borderRadius: 2,
                     p: 3,
@@ -93,6 +104,16 @@ const RegisterPage = () => {
                 <TextField
                     id="sign-in-email"
                     size="small"
+                    label="Username"
+                    type="username"
+                    placeholder="josh"
+                    error={usernameError}
+                    helperText={usernameErrorMessage}
+                    onChange={(e) => setForm({ ...form, username: e.target.value })}
+                />
+                <TextField
+                    id="sign-in-email"
+                    size="small"
                     label="Email"
                     type="email"
                     placeholder="your@email.com"
@@ -111,12 +132,12 @@ const RegisterPage = () => {
                     helperText={passwordErrorMessage}
                     onChange={(e) => setForm({ ...form, password: e.target.value })}
                 />
-                <Button type="submit" variant="contained" disabled={isLoading} sx={{ color: 'white' }}>{isLoading ? 'Loading' : 'Sign in'}</Button>
+                <Button type="submit" variant="contained" disabled={isRegisterLoading || isLoginLoading} sx={{ color: 'white' }}>{isRegisterLoading || isLoginLoading ? 'Loading' : 'Submit'}</Button>
                 <FormHelperText>
                     <Box sx={{ display: 'flex', gap: 1 }}>
-                        <Typography sx={{ fontWeight: 'light' }}>No account?</Typography>
-                        <Link to={'#'}>
-                            <Typography sx={{ cursor: 'pointer' }}> Create one!</Typography>
+                        <Typography sx={{ fontWeight: 'light' }}>Already have account?</Typography>
+                        <Link to={'/login'}>
+                            <Typography sx={{ cursor: 'pointer' }}> Login!</Typography>
                         </Link>
                     </Box>
                 </FormHelperText>
