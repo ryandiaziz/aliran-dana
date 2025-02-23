@@ -102,7 +102,7 @@ const RegisterPage = () => {
                     REGISTER
                 </Typography>
                 <TextField
-                    id="sign-in-email"
+                    id="username"
                     size="small"
                     label="Username"
                     type="username"
@@ -134,12 +134,10 @@ const RegisterPage = () => {
                 />
                 <Button type="submit" variant="contained" disabled={isRegisterLoading || isLoginLoading} sx={{ color: 'white' }}>{isRegisterLoading || isLoginLoading ? 'Loading' : 'Submit'}</Button>
                 <FormHelperText>
-                    <Box sx={{ display: 'flex', gap: 1 }}>
-                        <Typography sx={{ fontWeight: 'light' }}>Already have account?</Typography>
-                        <Link to={'/login'}>
-                            <Typography sx={{ cursor: 'pointer' }}> Login!</Typography>
-                        </Link>
-                    </Box>
+                    Already have account?
+                    <Link to={'/login'}>
+                        Login!
+                    </Link>
                 </FormHelperText>
             </Box>
         </Box>

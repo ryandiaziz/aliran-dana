@@ -18,8 +18,7 @@ const AddCategoryPage = () => {
 
     const [formValues, setFormValues] = useState({
         category_name: "",
-        category_type: "",
-        user_id: 2
+        category_type: ""
     });
 
     const handleChange = (e) => {

@@ -58,6 +58,9 @@ const categorySlice = createSlice({
             } else {
                 state.categoriesFilter = state.categories;
             }
+        },
+        setIsCategoryInitial: (state, action) => {
+            state.isCategoryInitial = action.payload;
         }
     },
     extraReducers: (builder) => {
@@ -130,5 +133,6 @@ const categorySlice = createSlice({
 export default categorySlice.reducer;
 export const {
     setSelectedCategory,
-    setCategoriesFilter
+    setCategoriesFilter,
+    setIsCategoryInitial
 } = categorySlice.actions;

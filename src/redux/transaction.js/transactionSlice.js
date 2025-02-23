@@ -40,6 +40,9 @@ const transactionSlice = createSlice({
     reducers: {
         setError: (state) => {
             state.create.isError = false;
+        },
+        setIsTransactionInitial: (state, action) => {
+            state.isTransactionInitial = action.payload;
         }
     },
     extraReducers: (builder) => {
@@ -52,8 +55,6 @@ const transactionSlice = createSlice({
             state.list.isLoading = false;
             if (state.isTransactionInitial) state.isTransactionInitial = false;
             if (action.payload.response) {
-                console.log(action.payload.response.data.transactions);
-
                 state.list.transactions = groupByDate(action.payload.response.data.transactions);
                 state.count.income = action.payload.response.data.count.income;
                 state.count.expense = action.payload.response.data.count.expense;
@@ -97,4 +98,7 @@ const transactionSlice = createSlice({
 })
 
 export default transactionSlice.reducer;
-export const { setError } = transactionSlice.actions
+export const {
+    setError,
+    setIsTransactionInitial
+} = transactionSlice.actions

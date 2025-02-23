@@ -112,12 +112,10 @@ const SignInPage = () => {
                 />
                 <Button type="submit" variant="contained" disabled={isLoading} sx={{ color: 'white' }}>{isLoading ? 'Loading' : 'Sign in'}</Button>
                 <FormHelperText>
-                    <Box sx={{ display: 'flex', gap: 1 }}>
-                        <Typography sx={{ fontWeight: 'light' }}>No account?</Typography>
-                        <Link to={'/register'}>
-                            <Typography sx={{ cursor: 'pointer' }}> Create one!</Typography>
-                        </Link>
-                    </Box>
+                    No account?
+                    <Link to={'/register'}>
+                        Create one!
+                    </Link>
                 </FormHelperText>
             </Box>
         </Box>

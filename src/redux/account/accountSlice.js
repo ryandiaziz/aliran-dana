@@ -45,6 +45,9 @@ const accountSlice = createSlice({
             state.selected.id = action.payload.value;
             state.selected.name = action.payload.name;
             state.selected.balance = action.payload.balance;
+        },
+        setIsAccountInitial: (state, action) => {
+            state.isAccountInitial = action.payload;
         }
     },
     extraReducers: (builder) => {
@@ -110,4 +113,7 @@ const accountSlice = createSlice({
 })
 
 export default accountSlice.reducer;
-export const { setSelectedAccount } = accountSlice.actions;
+export const {
+    setSelectedAccount,
+    setIsAccountInitial
+} = accountSlice.actions;

@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { listCategories } from "../redux/category/categoryReducers";
+import { useEffect } from "react";
 import { listAccounts } from "../redux/account/accountReducers";
+import { listCategories } from "../redux/category/categoryReducers";
+import { useDispatch, useSelector } from "react-redux";
 
 const useData = () => {
     const dispatch = useDispatch();
