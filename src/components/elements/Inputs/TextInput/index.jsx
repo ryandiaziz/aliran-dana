@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+import PropTypes from 'prop-types';
 import TextField from '@mui/material/TextField';
 
 export default function TextInput({ value, label, type, name, onChange, inputMode = 'text' }) {
@@ -15,4 +15,13 @@ export default function TextInput({ value, label, type, name, onChange, inputMod
             inputMode={inputMode}
         />
     );
+}
+
+TextInput.propTypes = {
+    value: PropTypes.string,
+    label: PropTypes.string,
+    type: PropTypes.string,
+    name: PropTypes.string,
+    onChange: PropTypes.func,
+    inputMode: PropTypes.string
 }
