@@ -1,10 +1,15 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { Box, FormHelperText } from "@mui/material"
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import {
+    Typography,
+    Button,
+    Box,
+    FormHelperText,
+    TextField,
+    IconButton,
+    InputAdornment
+} from "@mui/material";
 import { useDispatch } from "react-redux";
 
 import useRegister from "./useRegister";
@@ -19,6 +24,12 @@ const RegisterPage = () => {
     const [emailErrorMessage, setEmailErrorMessage] = useState('');
     const [passwordError, setPasswordError] = useState(false);
     const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleTogglePassword = () => {
+        setShowPassword((prev) => !prev);
+    };
+
     const [form, setForm] = useState({
         username: '',
         email: '',
@@ -125,12 +136,22 @@ const RegisterPage = () => {
                     id="sign-in-password"
                     size="small"
                     label="Password"
-                    type="password"
+                    variant="outlined"
                     placeholder="••••••"
                     autoComplete="current-password"
+                    type={showPassword ? 'text' : 'password'}
                     error={passwordError}
                     helperText={passwordErrorMessage}
                     onChange={(e) => setForm({ ...form, password: e.target.value })}
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <IconButton onClick={handleTogglePassword} edge="end">
+                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                </IconButton>
+                            </InputAdornment>
+                        )
+                    }}
                 />
                 <Button type="submit" variant="contained" disabled={isRegisterLoading || isLoginLoading} sx={{ color: 'white' }}>{isRegisterLoading || isLoginLoading ? 'Loading' : 'Submit'}</Button>
                 <FormHelperText>

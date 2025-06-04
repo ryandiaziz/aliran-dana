@@ -1,10 +1,16 @@
 import { useState } from "react";
-import { Box, FormHelperText } from "@mui/material"
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import {
+    Typography,
+    Button,
+    Box,
+    FormHelperText,
+    TextField,
+    IconButton,
+    InputAdornment
+} from "@mui/material";
 
 import useLogin from "./useLogin";
 import { authLogin } from "../../redux/auth/authReducers";
@@ -17,6 +23,12 @@ const SignInPage = () => {
     const [passwordError, setPasswordError] = useState(false);
     const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
     const { isLoading } = useSelector((state => state.auth.login));
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleTogglePassword = () => {
+        setShowPassword((prev) => !prev);
+    };
+
     const [form, setForm] = useState({
         email: '',
         password: '',
@@ -103,12 +115,22 @@ const SignInPage = () => {
                     id="sign-in-password"
                     size="small"
                     label="Password"
-                    type="password"
+                    variant="outlined"
                     placeholder="••••••"
                     autoComplete="current-password"
+                    type={showPassword ? 'text' : 'password'}
                     error={passwordError}
                     helperText={passwordErrorMessage}
-                    onChange={(e) => setForm({ ...form, password: e.target.value })}
+                    onChange={(e) => setForm({ ...form, password: e.target.value })}                    
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <IconButton onClick={handleTogglePassword} edge="end">
+                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                </IconButton>
+                            </InputAdornment>
+                        )
+                    }}
                 />
                 <Button type="submit" variant="contained" disabled={isLoading} sx={{ color: 'white' }}>{isLoading ? 'Loading' : 'Sign in'}</Button>
                 <FormHelperText>
@@ -122,4 +144,4 @@ const SignInPage = () => {
     )
 }
 
-export default SignInPage
+export default SignInPage;
