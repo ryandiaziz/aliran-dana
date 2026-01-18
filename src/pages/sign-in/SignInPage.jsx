@@ -1,16 +1,7 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import {
-    Typography,
-    Button,
-    Box,
-    FormHelperText,
-    TextField,
-    IconButton,
-    InputAdornment
-} from "@mui/material";
+import { Visibility, VisibilityOff } from '@mui/icons-material'; // Keeping icons for now, can be replaced or styled
 
 import useLogin from "./useLogin";
 import { authLogin } from "../../redux/auth/authReducers";
@@ -64,84 +55,68 @@ const SignInPage = () => {
     };
 
     return (
-        <Box sx={{
-            maxWidth: 'xl',
-            height: '100vh',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-        }}>
-            <Box
-                component={'form'}
+        <div className="flex justify-center items-center h-screen bg-gray-100 font-pixel">
+            <form
                 onSubmit={handleSubmit}
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: 2,
-                    bgcolor: 'white',
-                    width: 350,
-                    borderRadius: 2,
-                    p: 3,
-                    boxShadow: 2,
-                    m: { xs: 2, md: 0 }
-                }}
+                className="flex flex-col gap-6 bg-white w-[350px] p-8 border-[3px] border-black shadow-pixel"
             >
-                <Typography
-                    variant="h6"
-                    noWrap
-                    sx={{
-                        mr: 2,
-                        fontFamily: 'monospace',
-                        fontWeight: 700,
-                        letterSpacing: '.3rem',
-                        color: 'primary.main',
-                        textDecoration: 'none',
-                        mb: '1rem'
-                    }}
+                <div className="mb-4 text-center">
+                    <h1 className="text-3xl font-bold tracking-widest text-black mb-2">SIGN IN</h1>
+                    <div className="h-1 w-full bg-black"></div>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                    <label htmlFor="sign-in-email" className="font-bold uppercase text-sm">Email</label>
+                    <input
+                        id="sign-in-email"
+                        type="email"
+                        placeholder="your@email.com"
+                        className={`border-2 border-black p-2 outline-none focus:shadow-pixel transition-none font-sans ${emailError ? 'bg-red-100' : ''}`}
+                        onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    />
+                    {emailError && <span className="text-red-600 text-xs font-bold">{emailErrorMessage}</span>}
+                </div>
+
+                <div className="flex flex-col gap-2">
+                    <label htmlFor="sign-in-password" className="font-bold uppercase text-sm">Password</label>
+                    <div className={`flex items-center border-2 border-black bg-white focus-within:shadow-pixel transition-none ${passwordError ? 'bg-red-100' : ''}`}>
+                        <input
+                            id="sign-in-password"
+                            type={showPassword ? 'text' : 'password'}
+                            placeholder="••••••"
+                            autoComplete="current-password"
+                            className="flex-grow p-2 outline-none font-sans bg-transparent"
+                            onChange={(e) => setForm({ ...form, password: e.target.value })}
+                        />
+                        <button
+                            type="button"
+                            onClick={handleTogglePassword}
+                            className="p-2 focus:outline-none"
+                        >
+                            {showPassword ? <VisibilityOff fontSize="small" /> : <Visibility fontSize="small" />}
+                        </button>
+                    </div>
+                    {passwordError && <span className="text-red-600 text-xs font-bold">{passwordErrorMessage}</span>}
+                </div>
+
+                <button
+                    type="submit"
+                    disabled={isLoading}
+                    className="mt-4 bg-blue-600 text-white font-bold py-3 px-4 border-2 border-black shadow-pixel hover:translate-y-1 hover:shadow-none transition-all active:translate-y-1 active:shadow-none disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wider"
                 >
-                    SIGN IN
-                </Typography>
-                <TextField
-                    id="sign-in-email"
-                    size="small"
-                    label="Email"
-                    type="email"
-                    placeholder="your@email.com"
-                    error={emailError}
-                    helperText={emailErrorMessage}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
-                />
-                <TextField
-                    id="sign-in-password"
-                    size="small"
-                    label="Password"
-                    variant="outlined"
-                    placeholder="••••••"
-                    autoComplete="current-password"
-                    type={showPassword ? 'text' : 'password'}
-                    error={passwordError}
-                    helperText={passwordErrorMessage}
-                    onChange={(e) => setForm({ ...form, password: e.target.value })}                    
-                    InputProps={{
-                        endAdornment: (
-                            <InputAdornment position="end">
-                                <IconButton onClick={handleTogglePassword} edge="end">
-                                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                                </IconButton>
-                            </InputAdornment>
-                        )
-                    }}
-                />
-                <Button type="submit" variant="contained" disabled={isLoading} sx={{ color: 'white' }}>{isLoading ? 'Loading' : 'Sign in'}</Button>
-                <FormHelperText>
-                    No account?
-                    <Link to={'/register'}>
+                    {isLoading ? 'Loading...' : 'Sign in'}
+                </button>
+
+                <div className="text-center text-sm mt-2">
+                    <span>No account? </span>
+                    <Link to={'/register'} className="text-blue-700 font-bold hover:underline">
                         Create one!
                     </Link>
-                </FormHelperText>
-            </Box>
-        </Box>
+                </div>
+            </form>
+        </div>
     )
 }
 
 export default SignInPage;
+
