@@ -7,7 +7,7 @@ import ListTransactions from "../../components/fragments/listTransaction"
 import { filterTransactions } from '../../redux/transaction.js/transactionReducers';
 import BasicSpeedDial from '../../components/elements/BasicSpeedDial';
 import TotalDailyTransaction from '../../components/elements/TotalDailyTransaction';
-import TransactionFilter from '../../components/fragments/transactionFilter';
+import DateNavigation from '../../components/fragments/DateNavigation/DateNavigation';
 import { resetFilterDataTransaction } from '../../utils/helper';
 
 const HomePage = () => {
@@ -23,9 +23,20 @@ const HomePage = () => {
 
     return (
         <MainLayout>            
-            <TransactionFilter />
-            <TotalDailyTransaction />
-            <ListTransactions />
+            <div className="flex flex-col gap-6">
+                <section>
+                    <DateNavigation />
+                </section>
+                
+                <section>
+                    <TotalDailyTransaction />
+                </section>
+
+                <section>
+                   <ListTransactions />
+                </section>
+            </div>
+            
             <BasicSpeedDial />
         </MainLayout>
     )

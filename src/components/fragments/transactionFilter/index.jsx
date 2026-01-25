@@ -1,16 +1,12 @@
 /* eslint-disable no-unused-vars */
-import { IconButton, styled } from '@mui/material'
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
+
 import { setTransactionSearch } from '../../../redux/menu/menuSlice';
 import { useDispatch } from 'react-redux';
 import SearchDrawerTransaction from './components/SearchDrawerTransaction';
 
 const TransactionFilter = () => {
     const dispatch = useDispatch();
-    const TransactionFilterContainer = styled('div')({
-        minWidth: 56
-    });
-
     const toggleDrawer = (open) => (event) => {
         if (
             event &&
@@ -21,11 +17,13 @@ const TransactionFilter = () => {
     };
     return (
         <>
-            <TransactionFilterContainer>
-                <IconButton edge="end" aria-label="delete" onClick={toggleDrawer(true)}>
-                    <FilterAltIcon />
-                </IconButton>
-            </TransactionFilterContainer>
+            <button 
+                onClick={toggleDrawer(true)}
+                className="p-3 text-gray-600 hover:text-emerald-600 transition-colors"
+                aria-label="Filter transactions"
+            >
+                <FilterAltIcon />
+            </button>
             <SearchDrawerTransaction/>
         </>
     )
