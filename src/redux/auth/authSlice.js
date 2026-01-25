@@ -20,21 +20,15 @@ const initialState = {
 const authSlice = createSlice({
     name: 'auth',
     initialState,
-    // reducers: {
-    //     setSelectedCategory: (state, action) => {
-    //         state.selected.id = action.payload.value;
-    //         state.selected.name = action.payload.name;
-    //         state.selected.type = action.payload.type;
-    //     },
-    //     setCategoriesFilter: (state, action) => {
-    //         if (action.payload !== 'all') {
-    //             state.categoriesFilter = state.categories.filter((value) => value.category_type === action.payload);
-    //         } else {
-    //             state.categoriesFilter = state.categories;
-    //         }
-
-    //     }
-    // },
+    reducers: {
+        authLogout: (state) => {
+            state.login.token = '';
+            state.login.isError = false;
+            state.login.errorMessage = '';
+            state.isAuthInitial = true;
+            localStorage.removeItem('token');
+        }
+    },
     extraReducers: (builder) => {
         // LOGIN
         builder.addCase(authLogin.pending, (state) => {
@@ -69,7 +63,4 @@ const authSlice = createSlice({
 })
 
 export default authSlice.reducer;
-// export const {
-//     setSelectedCategory,
-//     setCategoriesFilter
-// } = authSlice.actions;
+export const { authLogout } = authSlice.actions;
