@@ -18,7 +18,7 @@ const Sidebar = ({ isOpen, onClose }) => {
     const menuItems = [
         { name: 'Dashboard', icon: <DashboardIcon />, path: '/' },
         { name: 'Transactions', icon: <ReceiptIcon />, path: '/transactions' },
-        { name: 'Wallets', icon: <WalletIcon />, path: '/wallets' },
+        { name: 'Accounts', icon: <WalletIcon />, path: '/accounts' },
         { name: 'Budget', icon: <BudgetIcon />, path: '/budget' },
         { name: 'Settings', icon: <SettingsIcon />, path: '/settings' },
     ];
