@@ -58,15 +58,14 @@ const SignInPage = () => {
         <div className="flex justify-center items-center h-screen bg-gray-100 font-pixel">
             <form
                 onSubmit={handleSubmit}
-                className="flex flex-col gap-6 bg-white w-[350px] p-8 border-[3px] border-black shadow-pixel"
+                className="flex flex-col gap-6 bg-white w-full max-w-[350px] p-8 border-2 border-black shadow-pixel mx-4"
             >
                 <div className="mb-4 text-center">
-                    <h1 className="text-3xl font-bold tracking-widest text-black mb-2">SIGN IN</h1>
-                    <div className="h-1 w-full bg-black"></div>
+                    <h1 className="text-3xl font-bold tracking-widest text-black/80">SIGN IN</h1>
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <label htmlFor="sign-in-email" className="font-bold uppercase text-sm">Email</label>
+                    <label htmlFor="sign-in-email" className="uppercase text-sm">Email</label>
                     <input
                         id="sign-in-email"
                         type="email"
@@ -78,20 +77,20 @@ const SignInPage = () => {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <label htmlFor="sign-in-password" className="font-bold uppercase text-sm">Password</label>
-                    <div className={`flex items-center border-2 border-black bg-white focus-within:shadow-pixel transition-none ${passwordError ? 'bg-red-100' : ''}`}>
+                    <label htmlFor="sign-in-password" className="uppercase text-sm">Password</label>
+                    <div className={`flex relative items-center border-2 border-black bg-white focus-within:shadow-pixel transition-none ${passwordError ? 'bg-red-100' : ''}`}>
                         <input
                             id="sign-in-password"
                             type={showPassword ? 'text' : 'password'}
                             placeholder="••••••"
                             autoComplete="current-password"
-                            className="flex-grow p-2 outline-none font-sans bg-transparent"
+                            className="flex-grow p-2 outline-none font-sans bg-transparent pr-80"
                             onChange={(e) => setForm({ ...form, password: e.target.value })}
                         />
                         <button
                             type="button"
                             onClick={handleTogglePassword}
-                            className="p-2 focus:outline-none"
+                            className="absolute right-2 top-1/2 -translate-y-1/2 p-2 focus:outline-none"
                         >
                             {showPassword ? <VisibilityOff fontSize="small" /> : <Visibility fontSize="small" />}
                         </button>
@@ -102,14 +101,14 @@ const SignInPage = () => {
                 <button
                     type="submit"
                     disabled={isLoading}
-                    className="mt-4 bg-blue-600 text-white font-bold py-3 px-4 border-2 border-black shadow-pixel hover:translate-y-1 hover:shadow-none transition-all active:translate-y-1 active:shadow-none disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wider"
+                    className="mt-4 bg-green-600 text-white font-bold py-3 px-4 border-2 border-black shadow-pixel hover:bg-green-700 hover:translate-y-1 hover:shadow-none transition-all active:translate-y-1 active:shadow-none disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wider"
                 >
                     {isLoading ? 'Loading...' : 'Sign in'}
                 </button>
 
                 <div className="text-center text-sm mt-2">
                     <span>No account? </span>
-                    <Link to={'/register'} className="text-blue-700 font-bold hover:underline">
+                    <Link to={'/register'} className="text-green-700 font-bold hover:underline">
                         Create one!
                     </Link>
                 </div>

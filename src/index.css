@@ -10,9 +10,13 @@
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  width: 100%;
   background-color: #f0f0f0; /* Light gray retro background */
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
 }
