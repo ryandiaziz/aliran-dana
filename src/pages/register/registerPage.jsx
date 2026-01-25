@@ -1,19 +1,13 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import {
-    Typography,
-    Button,
-    Box,
-    FormHelperText,
-    TextField,
-    IconButton,
-    InputAdornment
-} from "@mui/material";
 import { useDispatch } from "react-redux";
 
 import useRegister from "./useRegister";
 import { authRegister } from "../../redux/auth/authReducers";
+import AuthLayout from "../../components/layouts/AuthLayout";
+import Input from "../../components/elements/Inputs/Input";
+import Button from "../../components/elements/Buttons/Button";
 
 const RegisterPage = () => {
     const dispatch = useDispatch();
@@ -75,93 +69,73 @@ const RegisterPage = () => {
     };
 
     return (
-        <Box sx={{
-            maxWidth: 'xl',
-            height: '100vh',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-        }}>
-            <Box
-                component={'form'}
-                onSubmit={handleSubmit}
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: 2,
-                    bgcolor: 'white',
-                    width: 350,
-                    borderRadius: 2,
-                    p: 3,
-                    boxShadow: 2,
-                    m: { xs: 2, md: 0 }
-                }}
-            >
-                <Typography
-                    variant="h6"
-                    noWrap
-                    sx={{
-                        mr: 2,
-                        fontFamily: 'monospace',
-                        fontWeight: 700,
-                        letterSpacing: '.3rem',
-                        color: 'primary.main',
-                        textDecoration: 'none',
-                        mb: '1rem'
-                    }}
-                >
-                    REGISTER
-                </Typography>
-                <TextField
+        <AuthLayout 
+            title="Create an Account" 
+            subtitle="Start managing your finances effectively today."
+        >
+            <form onSubmit={handleSubmit} className="space-y-5">
+                <Input
                     id="username"
-                    size="small"
                     label="Username"
-                    type="username"
+                    type="text"
                     placeholder="josh"
                     error={usernameError}
-                    helperText={usernameErrorMessage}
+                    errorMessage={usernameErrorMessage}
+                    value={form.username}
                     onChange={(e) => setForm({ ...form, username: e.target.value })}
                 />
-                <TextField
-                    id="sign-in-email"
-                    size="small"
+                
+                <Input
+                    id="email"
                     label="Email"
                     type="email"
                     placeholder="your@email.com"
                     error={emailError}
-                    helperText={emailErrorMessage}
+                    errorMessage={emailErrorMessage}
+                    value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
                 />
-                <TextField
-                    id="sign-in-password"
-                    size="small"
+
+                <Input
+                    id="password"
                     label="Password"
-                    variant="outlined"
-                    placeholder="••••••"
-                    autoComplete="current-password"
                     type={showPassword ? 'text' : 'password'}
+                    placeholder="••••••"
                     error={passwordError}
-                    helperText={passwordErrorMessage}
+                    errorMessage={passwordErrorMessage}
+                    value={form.password}
                     onChange={(e) => setForm({ ...form, password: e.target.value })}
-                    InputProps={{
-                        endAdornment: (
-                            <InputAdornment position="end">
-                                <IconButton onClick={handleTogglePassword} edge="end">
-                                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                                </IconButton>
-                            </InputAdornment>
-                        )
-                    }}
+                    endAdornment={
+                        <button
+                            type="button"
+                            onClick={handleTogglePassword}
+                            className="focus:outline-none flex items-center justify-center p-1"
+                        >
+                            {showPassword ? <VisibilityOff fontSize="small" /> : <Visibility fontSize="small" />}
+                        </button>
+                    }
                 />
-                <Button type="submit" variant="contained" disabled={isRegisterLoading || isLoginLoading} sx={{ color: 'white' }}>{isRegisterLoading || isLoginLoading ? 'Loading' : 'Submit'}</Button>
-                <FormHelperText>
-                    Already have account?
-                    <Link to={'/login'}>
-                        Login!
+
+                <div className="pt-2">
+                    <Button 
+                        type="submit" 
+                        isLoading={isRegisterLoading || isLoginLoading}
+                    >
+                        Create Account
+                    </Button>
+                </div>
+
+                <div className="text-center text-sm text-gray-500">
+                    Already have an account?{' '}
+                    <Link 
+                        to={'/login'} 
+                        className="text-emerald-600 font-semibold hover:text-emerald-700 transition-colors"
+                    >
+                        Sign in
                     </Link>
-                </FormHelperText>
-            </Box>
-        </Box>
+                </div>
+            </form>
+        </AuthLayout>
     )
 }
 
