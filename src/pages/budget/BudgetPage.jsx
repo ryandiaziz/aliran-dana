@@ -91,7 +91,7 @@ const BudgetPage = () => {
                             </LocalizationProvider>
                         </div>
                         
-                        <div className="h-[300px] md:h-[400px]">
+                        <div className="min-h-[400px]">
                             <CategoryChart 
                                 data={summaryCategory.data} 
                                 isLoading={summaryCategory.isLoading} 
