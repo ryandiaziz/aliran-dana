@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 
 const COLORS = ['#10B981', '#3B82F6', '#F59E0B', '#EF4444', '#8B5CF6', '#EC4899', '#6366F1'];
 
@@ -71,33 +71,47 @@ const CategoryChart = ({ data, isLoading, type }) => {
     return (
         <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm h-full flex flex-col">
             <h3 className="text-lg font-bold text-gray-800 mb-6 capitalize">{type} by Category</h3>
-            <div className="flex-1 w-full">
-                <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                        <Pie
-                            data={chartData}
-                            cx="50%"
-                            cy="50%"
-                            labelLine={false}
-                            label={renderCustomizedLabel}
-                            outerRadius={100}
-                            fill="#8884d8"
-                            dataKey="value"
-                            nameKey="category_name"
-                        >
-                            {chartData.map((entry, index) => (
-                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                            ))}
-                        </Pie>
-                        <Tooltip content={<CustomTooltip />} />
-                        <Legend 
-                            verticalAlign="bottom" 
-                            height={36} 
-                            iconType="circle"
-                            formatter={(value) => <span className="text-sm text-gray-600 ml-1">{value}</span>}
+            <div className="flex-1 w-full relative min-h-[300px]">
+                <div className="absolute inset-0">
+                    <ResponsiveContainer width="100%" height="100%">
+                        <PieChart>
+                            <Pie
+                                data={chartData}
+                                cx="50%"
+                                cy="50%"
+                                labelLine={false}
+                                label={renderCustomizedLabel}
+                                outerRadius={100}
+                                fill="#8884d8"
+                                dataKey="value"
+                                nameKey="category_name"
+                            >
+                                {chartData.map((entry, index) => (
+                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                ))}
+                            </Pie>
+                            <Tooltip content={<CustomTooltip />} />
+                        </PieChart>
+                    </ResponsiveContainer>
+                </div>
+            </div>
+
+            {/* Custom Legend */}
+            <div className="mt-6 grid grid-cols-2 gap-3 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
+                {chartData.map((entry, index) => (
+                    <div key={`legend-${index}`} className="flex items-center gap-2 text-sm">
+                        <div 
+                            className="w-3 h-3 rounded-full flex-shrink-0" 
+                            style={{ backgroundColor: COLORS[index % COLORS.length] }}
                         />
-                    </PieChart>
-                </ResponsiveContainer>
+                        <span className="text-gray-600 truncate" title={entry.category_name}>
+                            {entry.category_name}
+                        </span>
+                        <span className="text-gray-900 font-medium ml-auto">
+                            {`${((entry.value / chartData.reduce((acc, curr) => acc + curr.value, 0)) * 100).toFixed(0)}%`}
+                        </span>
+                    </div>
+                ))}
             </div>
         </div>
     );
