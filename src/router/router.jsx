@@ -14,17 +14,14 @@ import AddCategoryPage from "../pages/add-category/AddCategoryPage";
 import TransferPage from "../pages/transfer/TransferPage";
 import BudgetPage from "../pages/budget/BudgetPage";
 import ProtectedRoute from "../components/elements/ProtectedRoute";
-import AuthLayout from "../components/layouts/AuthLayout";
 import SignInPage from "../pages/sign-in/SignInPage";
 import RegisterPage from "../pages/register/registerPage";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <>
-            <Route element={<AuthLayout />}>
-                <Route path="login" element={<SignInPage />} />
-                <Route path="register" element={<RegisterPage />} />
-            </Route>
+            <Route path="login" element={<SignInPage />} />
+            <Route path="register" element={<RegisterPage />} />
             <Route element={<ProtectedRoute />}>
                 <Route path="/" element={<RootLayout />}>
                     <Route index element={
