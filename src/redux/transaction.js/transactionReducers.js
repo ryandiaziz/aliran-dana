@@ -77,3 +77,31 @@ export const transferTransactions = createAsyncThunk('transaction/transferTransa
         return thunkAPI.rejectWithValue(error.message)
     }
 })
+
+export const getSummaryCategory = createAsyncThunk('transaction/getSummaryCategory', async (data, thunkAPI) => {
+    try {
+        const response = await axios({
+            method: 'GET',
+            url: `${URL}/summary/category`,
+            params: data
+        })
+        if (!response.data.metaData.status) throw new Error(response.data.metaData.message);
+        return response.data;
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error.message);
+    }
+})
+
+export const getSummaryTrend = createAsyncThunk('transaction/getSummaryTrend', async (data, thunkAPI) => {
+    try {
+        const response = await axios({
+            method: 'GET',
+            url: `${URL}/summary/trend`,
+            params: data
+        })
+        if (!response.data.metaData.status) throw new Error(response.data.metaData.message);
+        return response.data;
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error.message);
+    }
+})

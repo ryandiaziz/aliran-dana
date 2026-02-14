@@ -12,18 +12,17 @@ import AddAccountPage from "../pages/add-account/AddAccountPage";
 import CategoriesPage from "../pages/categories/categoriesPage";
 import AddCategoryPage from "../pages/add-category/AddCategoryPage";
 import TransferPage from "../pages/transfer/TransferPage";
+import BudgetPage from "../pages/budget/BudgetPage";
 import ProtectedRoute from "../components/elements/ProtectedRoute";
-import AuthLayout from "../components/layouts/AuthLayout";
 import SignInPage from "../pages/sign-in/SignInPage";
 import RegisterPage from "../pages/register/registerPage";
+import ErrorPage from "../components/layouts/ErrorPage";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <>
-            <Route element={<AuthLayout />}>
-                <Route path="login" element={<SignInPage />} />
-                <Route path="register" element={<RegisterPage />} />
-            </Route>
+            <Route path="login" element={<SignInPage />} />
+            <Route path="register" element={<RegisterPage />} />
             <Route element={<ProtectedRoute />}>
                 <Route path="/" element={<RootLayout />}>
                     <Route index element={
@@ -40,6 +39,11 @@ const router = createBrowserRouter(
                         <ProtectedRoute isPage={true}>
                             <TransferPage />
                         </ProtectedRoute>} />
+                    <Route path="budget" element={
+                        <ProtectedRoute isPage={true}>
+                            <BudgetPage />
+                        </ProtectedRoute>} />
+
                     <Route path="accounts" element={
                         <ProtectedRoute isPage={true}>
                             <AccountPage />
@@ -71,6 +75,7 @@ const router = createBrowserRouter(
                         </ProtectedRoute>} />
                 </Route>
             </Route>
+            <Route path="*" element={<ErrorPage />} />
         </>
     )
 )

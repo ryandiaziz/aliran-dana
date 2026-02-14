@@ -4,7 +4,9 @@ import { groupByDate } from '../../utils/helper';
 import {
     filterTransactions,
     createTransactions,
-    transferTransactions
+    transferTransactions,
+    getSummaryCategory,
+    getSummaryTrend
 } from './transactionReducers'
 
 const initialState = {
@@ -32,6 +34,18 @@ const initialState = {
         errorMessage: '',
         transactions: []
     },
+    summaryCategory: {
+        isLoading: false,
+        isError: false,
+        errorMessage: '',
+        data: []
+    },
+    summaryTrend: {
+        isLoading: false,
+        isError: false,
+        errorMessage: '',
+        data: []
+    }
 }
 
 const transactionSlice = createSlice({
@@ -93,6 +107,34 @@ const transactionSlice = createSlice({
             state.transfer.isLoading = false;
             state.transfer.isError = true;
             state.transfer.errorMessage = action.payload;
+        });
+        // SUMMARY CATEGORY
+        builder.addCase(getSummaryCategory.pending, (state) => {
+            state.summaryCategory.isLoading = true;
+            state.summaryCategory.isError = false;
+        });
+        builder.addCase(getSummaryCategory.fulfilled, (state, action) => {
+            state.summaryCategory.isLoading = false;
+            state.summaryCategory.data = action.payload.response.data;
+        });
+        builder.addCase(getSummaryCategory.rejected, (state, action) => {
+            state.summaryCategory.isLoading = false;
+            state.summaryCategory.isError = true;
+            state.summaryCategory.errorMessage = action.payload;
+        });
+        // SUMMARY TREND
+        builder.addCase(getSummaryTrend.pending, (state) => {
+            state.summaryTrend.isLoading = true;
+            state.summaryTrend.isError = false;
+        });
+        builder.addCase(getSummaryTrend.fulfilled, (state, action) => {
+            state.summaryTrend.isLoading = false;
+            state.summaryTrend.data = action.payload.response.data;
+        });
+        builder.addCase(getSummaryTrend.rejected, (state, action) => {
+            state.summaryTrend.isLoading = false;
+            state.summaryTrend.isError = true;
+            state.summaryTrend.errorMessage = action.payload;
         });
     }
 })

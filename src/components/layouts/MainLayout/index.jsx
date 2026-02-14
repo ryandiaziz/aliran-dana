@@ -7,10 +7,10 @@ const MainLayout = ({ children }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     return (
-        <div className="flex min-h-screen bg-gray-50">
+        <div className="flex h-screen bg-gray-50 overflow-hidden">
             <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
             
-            <div className="flex-1 flex flex-col min-h-screen">
+            <div className="flex-1 flex flex-col h-full relative">
                 {/* Mobile Header */}
                 <header className="md:hidden bg-white border-b border-gray-200 p-4 flex items-center gap-3 sticky top-0 z-20">
                     <button 
