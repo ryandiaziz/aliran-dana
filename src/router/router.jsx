@@ -16,6 +16,7 @@ import BudgetPage from "../pages/budget/BudgetPage";
 import ProtectedRoute from "../components/elements/ProtectedRoute";
 import SignInPage from "../pages/sign-in/SignInPage";
 import RegisterPage from "../pages/register/registerPage";
+import ErrorPage from "../components/layouts/ErrorPage";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -74,6 +75,7 @@ const router = createBrowserRouter(
                         </ProtectedRoute>} />
                 </Route>
             </Route>
+            <Route path="*" element={<ErrorPage />} />
         </>
     )
 )
