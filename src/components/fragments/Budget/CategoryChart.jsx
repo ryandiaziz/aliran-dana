@@ -3,7 +3,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recha
 
 const COLORS = ['#10B981', '#3B82F6', '#F59E0B', '#EF4444', '#8B5CF6', '#EC4899', '#6366F1'];
 
-const CategoryChart = ({ data, isLoading }) => {
+const CategoryChart = ({ data, isLoading, type }) => {
     if (isLoading) {
         return (
             <div className="w-full h-80 flex items-center justify-center bg-gray-50 rounded-2xl animate-pulse">
@@ -70,7 +70,7 @@ const CategoryChart = ({ data, isLoading }) => {
 
     return (
         <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm h-full flex flex-col">
-            <h3 className="text-lg font-bold text-gray-800 mb-6">Expense by Category</h3>
+            <h3 className="text-lg font-bold text-gray-800 mb-6 capitalize">{type} by Category</h3>
             <div className="flex-1 w-full min-h-[300px]">
                 <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
@@ -108,7 +108,8 @@ CategoryChart.propTypes = {
         category_name: PropTypes.string,
         total: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     })),
-    isLoading: PropTypes.bool
+    isLoading: PropTypes.bool,
+    type: PropTypes.string
 };
 
 export default CategoryChart;

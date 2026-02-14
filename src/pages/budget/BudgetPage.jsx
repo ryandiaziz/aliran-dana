@@ -17,15 +17,16 @@ const BudgetPage = () => {
     const [startDate, setStartDate] = useState(dayjs().startOf('year'));
     const [endDate, setEndDate] = useState(dayjs().endOf('year'));
     const [selectedYear, setSelectedYear] = useState(dayjs());
+    const [transactionType, setTransactionType] = useState('expense');
 
     useEffect(() => {
         // Fetch Category Data
         dispatch(getSummaryCategory({
             start_date: startDate.format('YYYY-MM-DD'),
             end_date: endDate.format('YYYY-MM-DD'),
-            type: 'expense' // Default focus on expense for budget
+            type: transactionType
         }));
-    }, [dispatch, startDate, endDate]);
+    }, [dispatch, startDate, endDate, transactionType]);
 
     useEffect(() => {
         // Fetch Trend Data
@@ -49,7 +50,29 @@ const BudgetPage = () => {
                     
                     {/* Category Chart Section */}
                     <div className="space-y-4">
-                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-gray-100 shadow-sm">
+                        <div className="flex flex-col gap-4 bg-white p-4 rounded-2xl border border-gray-100 shadow-sm">
+                            <div className="flex bg-gray-100 p-1 rounded-xl">
+                                <button
+                                    onClick={() => setTransactionType('expense')}
+                                    className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${
+                                        transactionType === 'expense' 
+                                            ? 'bg-white text-red-600 shadow-sm' 
+                                            : 'text-gray-500 hover:text-gray-700'
+                                    }`}
+                                >
+                                    Expense
+                                </button>
+                                <button
+                                    onClick={() => setTransactionType('income')}
+                                    className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${
+                                        transactionType === 'income' 
+                                            ? 'bg-white text-emerald-600 shadow-sm' 
+                                            : 'text-gray-500 hover:text-gray-700'
+                                    }`}
+                                >
+                                    Income
+                                </button>
+                            </div>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <div className="flex gap-2 w-full">
                                     <DatePicker
@@ -72,6 +95,7 @@ const BudgetPage = () => {
                             <CategoryChart 
                                 data={summaryCategory.data} 
                                 isLoading={summaryCategory.isLoading} 
+                                type={transactionType}
                             />
                         </div>
                     </div>
