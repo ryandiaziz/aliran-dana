@@ -71,7 +71,7 @@ const CategoryChart = ({ data, isLoading, type }) => {
     return (
         <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm h-full flex flex-col">
             <h3 className="text-lg font-bold text-gray-800 mb-6 capitalize">{type} by Category</h3>
-            <div className="flex-1 w-full min-h-[300px]">
+            <div className="flex-1 w-full">
                 <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                         <Pie

@@ -37,7 +37,7 @@ const BudgetPage = () => {
 
     return (
         <MainLayout>
-            <div className="space-y-8">
+            <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-8">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div>
                         <h1 className="text-2xl font-bold text-gray-900">Budget & Analytics</h1>
@@ -74,7 +74,7 @@ const BudgetPage = () => {
                                 </button>
                             </div>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <div className="flex gap-2 w-full">
+                                <div className="flex flex-col sm:flex-row gap-2 w-full">
                                     <DatePicker
                                         label="Start Date"
                                         value={startDate}
@@ -91,7 +91,7 @@ const BudgetPage = () => {
                             </LocalizationProvider>
                         </div>
                         
-                        <div className="h-[400px]">
+                        <div className="h-[300px] md:h-[400px]">
                             <CategoryChart 
                                 data={summaryCategory.data} 
                                 isLoading={summaryCategory.isLoading} 
@@ -114,7 +114,7 @@ const BudgetPage = () => {
                             </LocalizationProvider>
                         </div>
 
-                        <div className="h-[400px]">
+                        <div className="h-[300px] md:h-[400px]">
                             <TrendChart 
                                 data={summaryTrend.data} 
                                 isLoading={summaryTrend.isLoading} 
