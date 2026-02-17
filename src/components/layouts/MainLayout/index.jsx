@@ -24,7 +24,7 @@ const MainLayout = ({ children }) => {
                     </span>
                 </header>
 
-                <main className="flex-1 w-full max-w-7xl mx-auto p-4 md:p-8 overflow-y-auto">
+                <main className="flex-1 w-full max-w-8xl mx-auto p-4 md:p-8 overflow-y-auto">
                     {children}
                 </main>
             </div>

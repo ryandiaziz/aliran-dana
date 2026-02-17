@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
     Dashboard as DashboardIcon, 
     ReceiptLong as ReceiptIcon, 
@@ -13,6 +13,7 @@ import { authLogout } from '../../../redux/auth/authSlice';
 
 const Sidebar = ({ isOpen, onClose }) => {
     const location = useLocation();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const menuItems = [
@@ -25,6 +26,7 @@ const Sidebar = ({ isOpen, onClose }) => {
 
     const handleLogout = () => {
         dispatch(authLogout());
+        navigate('/login');
     };
 
     return (
