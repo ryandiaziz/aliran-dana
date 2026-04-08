@@ -27,6 +27,7 @@ const TransferPage = () => {
         to_account: "",
         transaction_amount: 0,
         admin_fee: 0,
+        note: "",
         transaction_date: dayjs().format('YYYY-MM-DD HH:mm:ss.SSS')
     });
 
@@ -52,7 +53,18 @@ const TransferPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(transferTransactions(formValues));
+        
+        const payload = {
+            source_account_id: formValues.from_account,
+            destination_account_id: formValues.to_account,
+            amount: formValues.transaction_amount,
+            admin_fee: formValues.admin_fee || 0,
+            note: formValues.note,
+            transaction_date: formValues.transaction_date,
+            category_id: 10
+        };
+
+        dispatch(transferTransactions(payload));
     }
 
     useEffect(() => {
@@ -105,6 +117,13 @@ const TransferPage = () => {
                 inputMode="numeric"
                 name={'admin_fee'}
                 value={formValues.admin_fee}
+                onChange={handleChange}
+            />
+            <TextInput
+                label={'Note (Optional)'}
+                type={'text'}
+                name={'note'}
+                value={formValues.note}
                 onChange={handleChange}
             />
             <LocalizationProvider dateAdapter={AdapterDayjs}>
